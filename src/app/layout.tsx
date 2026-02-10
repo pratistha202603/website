@@ -15,7 +15,7 @@ export default function RootLayout({
         {/* Top right logo - visible on all pages */}
         <Link
           href="/home"
-          className="fixed top-4 right-4 z-50 mt-5"
+          className="fixed top-4 left-4 z-50 mt-5"
         >
           <Image
             src="/download.jpeg"
