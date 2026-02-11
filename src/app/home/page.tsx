@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import styles from "./page.module.css";
+
 
 export default function FestHomePage() {
 
   const workshops = [
     "AI & Machine Learning Bootcamp",
     "Web Development with Next.js",
-    "Data Science with Python",
   ];
 
   const technical = [
@@ -35,9 +36,16 @@ export default function FestHomePage() {
 
   return (
     <main className="relative px-6 py-16 space-y-28 ">
+      {/* <div className={styles.indra}>Welcome</div> */}
+      <div className="relative  space-y-14">
+        <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-5 sm:text-2xl ">Jawaharlal Nehru Technological University - Gurajada Vizianagaram </div>
+        <div className="text-center text-3xl font-bold text-amber-200 m-2 mb-5 ">JNTU-GV College of Engineering Vizianagaram (A)</div>
+        <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-5 ">Department of Civil Engineering </div>
 
+      </div>
       {/* Hero */}
       <section className="text-center">
+                <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-8 ">Welcome to the</div>
         <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
           PRATISTHA 2K26
         </h1>
@@ -45,13 +53,14 @@ export default function FestHomePage() {
         <p className="mt-5 text-gray-300 max-w-xl mx-auto">
           Annual Technical & Cultural Fest – Innovation, Creativity and Technology under one grand celebration.
         </p>
+        <div className="text-3xl text-orange-300 font-bold mt-5"> March 8th & 9th</div>
       </section>
 
       {/* Workshops */}
       <section id="workshops">
         <SectionTitle variant="cyan">Workshops</SectionTitle>
 
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 text-center">
           {workshops.map((t, i) => (
             <Link
               key={t}
@@ -182,10 +191,9 @@ export default function FestHomePage() {
         <SectionTitle variant="green">About the College</SectionTitle>
 
         <GlassBox>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed praesentium reiciendis harum possimus doloremque
-          distinctio cupiditate molestiae provident quas veritatis beatae fugiat architecto accusamus error adipisci
-          minus voluptas vero voluptatem. Officia dignissimos labore sit pariatur doloremque saepe eligendi tempore
-          numquam rerum facere quidem minima excepturi eaque totam molestiae vitae.
+          The Civil Engineering Department at Jawaharlal Nehru Technological University - Gurajada Vizianagaram is a hub of academic excellence, innovation, and practical learning. Commited to the 
+          nuturing of future leaders in the field of Civil Engineering, the department offers a comprehensive curriculum that combines theoratical knowledge with hands-on experience. Reowned for its 
+          state-of-the-art infrastructure and cutting-edge laboratories, the department provides students with a conductice environment for researh and development
         </GlassBox>
       </section>
 
@@ -194,10 +202,8 @@ export default function FestHomePage() {
         <SectionTitle variant="violet">About the Event</SectionTitle>
 
         <GlassBox>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis doloribus minima provident modi perferendis
-          exercitationem commodi asperiores soluta dignissimos reiciendis quis dolorem tempora reprehenderit rerum
-          dolore libero earum obcaecati aliquid facilis quaerat iusto est ipsa minus magni laborum aspernatur voluptates
-          mollitia ipsum consectetur molestiae explicabo animi enim deleniti temporibus.
+          Pratistha is the Two day National-level Technical Fest organized by the Department of Civil Engineering in which competition is conducted in various Technical and Non-Technical events encourages students
+          to participate and showcase their talents. Students put in their best entry learning how to manage time effectively priotirize work, follow a schdule 
         </GlassBox>
       </section>
 
@@ -209,7 +215,7 @@ export default function FestHomePage() {
           {coordinators.map((c, i) => (
             <CoordinatorCard
               key={c}
-              name={c}
+              name={"indrasai"}
               img={`https://picsum.photos/300/300?random=${i + 60}`}
             />
           ))}
