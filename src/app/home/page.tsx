@@ -35,32 +35,56 @@ export default function FestHomePage() {
   const coordinators = Array.from({ length: 10 }, (_, i) => `Coordinator ${i + 1}`);
 
   return (
-    <main className="relative px-6 py-16 space-y-28 ">
+    <main className="relative py-3 sm:py-5 space-y-5 sm:px-50">
+      <div className="sm:mt-30 mt-10">
       {/* <div className={styles.indra}>Welcome</div> */}
-      <div className="relative  space-y-14">
-        <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-5 sm:text-2xl ">Jawaharlal Nehru Technological University - Gurajada Vizianagaram </div>
-        <div className="text-center text-3xl font-bold text-amber-200 m-2 mb-5 ">JNTU-GV College of Engineering Vizianagaram (A)</div>
-        <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-5 ">Department of Civil Engineering </div>
+      <div className="relative  space-y-20  sm:space-y-20">
+        <div className="text-center text-md font-bold text-slate-50 mb-2 mt-20 sm:mt-20 sm:text-3xl ">Jawaharlal Nehru Technological University - Gurajada Vizianagaram </div>
+        <div className="text-center text-sm sm:text-3xl font-bold text-slate-50  mb-5 ">JNTU-GV College of Engineering Vizianagaram (A)</div>
+        <div className="text-center text-lg sm:text-3xl font-bold text-slate-50 mt-10 ">Department of Civil Engineering </div>
 
       </div>
       {/* Hero */}
       <section className="text-center">
-                <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-8 ">Welcome to the</div>
+                <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-8 mt-10">Welcome to</div>
         <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
           PRATISTHA 2K26
         </h1>
 
-        <p className="mt-5 text-gray-300 max-w-xl mx-auto">
+        <p  className="mt-5 text-gray-300 max-w-xl mx-auto">
           Annual Technical & Cultural Fest – Innovation, Creativity and Technology under one grand celebration.
         </p>
-        <div className="text-3xl text-orange-300 font-bold mt-5"> March 8th & 9th</div>
+        <div className="text-3xl text-orange-300 font-bold mt-10 mb-20 sm:mb-10  "> March 8th & 9th</div>
+      </section>
+      </div>
+      {/* About College */}
+      <section id="about-college" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg">
+        <SectionTitle variant="green">About the College</SectionTitle>
+<div className="flex justify-center">
+        <GlassBox>
+          The Civil Engineering Department at Jawaharlal Nehru Technological University - Gurajada Vizianagaram is a hub of academic excellence, innovation, and practical learning. Commited to the 
+          nuturing of future leaders in the field of Civil Engineering, the department offers a comprehensive curriculum that combines theoratical knowledge with hands-on experience. Reowned for its 
+          state-of-the-art infrastructure and cutting-edge laboratories, the department provides students with a conductice environment for researh and development
+        </GlassBox>
+        </div>
       </section>
 
-      {/* Workshops */}
-      <section id="workshops">
-        <SectionTitle variant="cyan">Workshops</SectionTitle>
+       <section id="about-event" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg ">
+        <SectionTitle variant="violet">About the Event</SectionTitle>
+<div className="flex justify-center">
+        <GlassBox>
+          Pratistha is the Two day National-level Technical Fest organized by the Department of Civil Engineering in which competition is conducted in various Technical and Non-Technical events encourages students
+          to participate and showcase their talents. Students put in their best entry learning how to manage time effectively priotirize work, follow a schdule 
+        </GlassBox>
+        </div>
+      </section>
 
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 text-center">
+
+      {/* Workshops */}
+      <section  className=" text-center  " id="workshops">
+        <SectionTitle variant="cyan">Workshops</SectionTitle>
+<div className="flex justify-center w-full ">
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 text-center">
           {workshops.map((t, i) => (
             <Link
               key={t}
@@ -74,10 +98,11 @@ export default function FestHomePage() {
             </Link>
           ))}
         </div>
+        </div>
       </section>
 
       {/* Technical Events */}
-      <section id="technical-events">
+      <section id="technical-events" className="pt-25 text-center">
         <SectionTitle variant="blue">Technical Events</SectionTitle>
 
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
@@ -97,7 +122,7 @@ export default function FestHomePage() {
       </section>
 
       {/* Non-Technical Events */}
-      <section id="non-technical-events">
+      <section id="non-technical-events " className="sm:ml-2">
         <SectionTitle variant="pink">Non-Technical Events</SectionTitle>
 
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
@@ -116,34 +141,36 @@ export default function FestHomePage() {
         </div>
       </section>
       {/* Accommodation */}
-<section id="accommodation">
+<section id="accommodation" className="pt-25 text-center mt-0">
   <SectionTitle variant="green">Accommodation</SectionTitle>
 
-  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-1 text-justify text-2xl sm:m-10 mt-10 ">
 
-    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-5">
-      <h3 className="text-lg font-semibold mb-2">Boys Hostel</h3>
+    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-5 ">
+      <h3 className="text-lg font-semibold mb-2"></h3>
       <p className="text-sm text-gray-300 mb-2">
-        Accommodation facility available for male participants inside the campus.
-      </p>
+          We're thrilled to offer 2 DAYS ACCOMMODATION for the Participants of Pratistha-2k26! Enjoy a Comfortable Stay. delecious meals,
+          and a vibrant campus atmosphere 
+              </p>
+      <p className="text-base text-gray-300 mb-2 text-center font-bold">
+          Dates: March 9th & 10 th
+              </p>
+      <p className="text-sm text-gray-300 mb-2">
+          Location: Jntugv college, Dwarapudi, Vizianagaram, Andhra Pradesh 535003. Limited slots available!
+              </p>
+      <p className="text-sm text-gray-300 mb-2">
+            contact us :-------------------------------------- to confirm your spot. Don't miss out -- see you soon
+              </p>
       <p className="text-xs text-gray-400">
         ✔ Shared rooms • ✔ Basic beds • ✔ Drinking water
       </p>
     </div>
 
-    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-5">
-      <h3 className="text-lg font-semibold mb-2">Girls Hostel</h3>
-      <p className="text-sm text-gray-300 mb-2">
-        Safe and comfortable stay for female participants.
-      </p>
-      <p className="text-xs text-gray-400">
-        ✔ Shared rooms • ✔ Security • ✔ Drinking water
-      </p>
-    </div>
+
 
     <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-5">
       <h3 className="text-lg font-semibold mb-2">Important Instructions</h3>
-      <ul className="text-sm text-gray-300 list-disc pl-5 space-y-1">
+      <ul className="text-sm text-gray-300 list-none pl-5 space-y-1">
         <li>Accommodation is available on prior request only.</li>
         <li>Participants must carry college ID card.</li>
         <li>Reporting time will be shared after registration.</li>
@@ -186,26 +213,10 @@ export default function FestHomePage() {
         </div>
       </section>
 
-      {/* About College */}
-      <section id="about-college">
-        <SectionTitle variant="green">About the College</SectionTitle>
-
-        <GlassBox>
-          The Civil Engineering Department at Jawaharlal Nehru Technological University - Gurajada Vizianagaram is a hub of academic excellence, innovation, and practical learning. Commited to the 
-          nuturing of future leaders in the field of Civil Engineering, the department offers a comprehensive curriculum that combines theoratical knowledge with hands-on experience. Reowned for its 
-          state-of-the-art infrastructure and cutting-edge laboratories, the department provides students with a conductice environment for researh and development
-        </GlassBox>
-      </section>
+      
 
       {/* About Event */}
-      <section id="about-event">
-        <SectionTitle variant="violet">About the Event</SectionTitle>
-
-        <GlassBox>
-          Pratistha is the Two day National-level Technical Fest organized by the Department of Civil Engineering in which competition is conducted in various Technical and Non-Technical events encourages students
-          to participate and showcase their talents. Students put in their best entry learning how to manage time effectively priotirize work, follow a schdule 
-        </GlassBox>
-      </section>
+     
 
       {/* Coordinators */}
       <section id="coordinators">
@@ -309,7 +320,7 @@ function CoordinatorCard({ name, img }: { name: string; img: string }) {
 
 function GlassBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-4xl rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-6 text-gray-200 leading-relaxed">
+    <div className="max-w-4xl rounded-xl border border-white/10 bg-white/5 backdrop-blur-lg p-2 sm:p-6  text-gray-200 leading-relaxed text-justify">
       {children}
     </div>
   );

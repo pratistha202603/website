@@ -10,19 +10,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="">
+      <body className="bg-zinc-950 text-zinc-100 antialiased">
 
         {/* Top right logo - visible on all pages */}
         <Link
           href="/home"
-          className="fixed top-4 left-4 z-50 mt-5"
+          className="fixed top-0 left-4 z-60 mt-5"
         >
           <Image
             src="/download.jpeg"
             alt="Pratistha Logo"
             width={80}
             height={80}
-            className="rounded-full shadow-lg"
+            className="rounded-full shadow-lg w-10 h-10 sm:w-20 sm:h-20 "
             priority
           />
         </Link>

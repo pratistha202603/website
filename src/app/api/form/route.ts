@@ -1,9 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { connectDB } from "@/db/connect";
 import { Registration } from "@/models/Registrations";
-import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
+import User from "@/models/User";
 
-export async function POST(req: Request) {
+
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
@@ -13,16 +15,33 @@ export async function POST(req: Request) {
 
     await connectDB();
 
-   const cookieStore = await cookies();
-const userId = cookieStore.get("userId")?.value;
+    // ✅ Read cookie from request
+    const token = req.cookies.get("token")?.value;
 
+    console.log("TOKEN IN FORM API =", token);
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json(
         { success: false, message: "Not logged in" },
         { status: 401 }
       );
     }
+
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as { userId: string };
+
+    const userId = decoded.userId;
+   await User.findByIdAndUpdate(
+  userId,
+  {
+    rollNo: body.rollNo,
+    mobile: body.mobile,
+  },
+  { new: true }
+);
+
 
     const doc = await Registration.create({
       ...body,

@@ -5,14 +5,18 @@ import { useEffect, useMemo, useState } from "react";
 import { EVENT_PRICES } from "@/helpers/eventPrices";
 import { buildUpiLink } from "@/helpers/upi";
 import { UPI_ID, PAYMENT_NAME } from "@/helpers/paymentConfig";
+import { useRouter } from "next/navigation";
 
-export default function FormPage() {
+
+export default function FormPageClient() {
   const searchParams = useSearchParams();
 
-  const [mounted, setMounted] = useState(false);
   const [eventTitle, setEventTitle] = useState("");
   const [eventType, setEventType] = useState("");
   const [utr, setUtr] = useState("");
+  const router = useRouter();
+const [success, setSuccess] = useState(false);
+
 
   const [form, setForm] = useState({
     name: "",
@@ -23,18 +27,45 @@ export default function FormPage() {
 
   const [status, setStatus] = useState("");
 
+  // 🔹 read event from url
   useEffect(() => {
-    setMounted(true);
-
     const ev = searchParams.get("event") || "";
     let type = searchParams.get("type") || "";
 
-    // important fix for your ==workshop bug
     type = type.replace(/^=+/, "");
 
     setEventTitle(ev);
     setEventType(type);
   }, [searchParams]);
+
+  // 🔹 auto fill user profile
+  useEffect(() => {
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/me", {
+          credentials: "include",
+        });
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (data?.user) {
+          console.log("ME API USER =>", data.user); // 👈 add this
+          setForm({
+            name: data.user.name || "",
+            rollNo: data.user.rollNo || "",
+            email: data.user.email || "",
+            mobile: data.user.mobile || "",
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    loadProfile();
+  }, []);
 
   const amount = useMemo(() => {
     return EVENT_PRICES[eventTitle] || 0;
@@ -74,12 +105,9 @@ export default function FormPage() {
     try {
       const res = await fetch("/api/form", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-
-          // TEMP – for now, until login is implemented
-          // paste a real User _id from MongoDB
-          "x-user-id": "PASTE_REAL_USER_ID_FROM_MONGODB"
         },
         body: JSON.stringify({
           name: form.name,
@@ -99,14 +127,11 @@ export default function FormPage() {
         return;
       }
 
-      setStatus("Registered successfully");
+      setSuccess(true);
 
-      setForm({
-        name: "",
-        rollNo: "",
-        email: "",
-        mobile: "",
-      });
+setTimeout(() => {
+  router.push("/home");
+}, 2000);
 
       setUtr("");
     } catch (err) {
@@ -115,23 +140,32 @@ export default function FormPage() {
     }
   }
 
-  if (!mounted) return null;
+  if (success) {
+  return (
+    <main className="min-h-screen flex items-center justify-center text-white">
+      <div className="rounded-xl border border-green-400/30 bg-green-400/10 px-8 py-6 text-center">
+        <h2 className="text-2xl font-bold text-green-300">
+          ✅ Registration Successful
+        </h2>
+        <p className="mt-2 text-sm text-green-200">
+          Redirecting to home page...
+        </p>
+      </div>
+    </main>
+  );
+}
+
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 text-white">
+    <main className="min-h-screen flex items-center justify-center px-4 text-white ">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 space-y-4"
+        className="w-full max-w-md rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 space-y-4 mt-30"
       >
-        <h1 className="text-2xl font-bold mb-2">
-          Event Registration
-        </h1>
+        <h1 className="text-2xl font-bold mb-2">Event Registration</h1>
 
-        {/* Selected event */}
         <div>
-          <label className="text-sm text-gray-300">
-            Selected Event
-          </label>
+          <label className="text-sm text-gray-300">Selected Event</label>
           <input
             value={eventTitle}
             readOnly
@@ -161,15 +195,15 @@ export default function FormPage() {
           />
         </div>
 
+        {/* ✅ email is auto-filled and NOT editable */}
         <div>
           <label className="text-sm text-gray-300">Email</label>
           <input
             name="email"
             type="email"
-            required
             value={form.email}
-            onChange={handleChange}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
+            readOnly
+            className="mt-1 w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/5 p-3 text-gray-400"
           />
         </div>
 
@@ -213,9 +247,7 @@ export default function FormPage() {
         </div>
 
         {status && (
-          <p className="text-sm text-center text-cyan-300">
-            {status}
-          </p>
+          <p className="text-sm text-center text-cyan-300">{status}</p>
         )}
 
         <button

@@ -47,8 +47,8 @@ export default function FinancePage() {
   if (loading) return <div className="p-6">Loading...</div>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">
+    <div className=" relative z-10  text-white">
+      <h1 className="text-2xl font-semibold mb-4 ">
         Payment Verification (Finance)
       </h1>
 

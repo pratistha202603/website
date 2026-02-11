@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/db/connect";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
@@ -27,15 +28,35 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
     });
 
-    return NextResponse.json({ success: true });
+    // ✅ AUTO LOGIN PART
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" }
+    );
 
- } catch (err: any) {
+    // ✅ Use response cookies (NOT cookies() )
+    const res = NextResponse.json({
+      success: true,
+      userId: user._id,
+    });
+
+    res.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/home",
+    });
+
+    return res;
+
+  } catch (err: any) {
     console.error("SIGNUP ERROR =>", err);
 
     return NextResponse.json(

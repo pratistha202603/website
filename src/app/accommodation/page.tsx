@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AccommodationPage() {
   const [form, setForm] = useState({
@@ -14,11 +14,39 @@ export default function AccommodationPage() {
   });
 
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // ✅ AUTO FILL
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const res = await fetch("/api/accommodation");
+        const data = await res.json();
+
+        if (data?.success && data.user) {
+          setForm((prev) => ({
+            ...prev,
+            name: data.user.name || "",
+            rollNo: data.user.rollNo || "",
+            email: data.user.email || "",
+            mobile: data.user.mobile || "",
+          }));
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUser();
+  }, []);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -38,18 +66,24 @@ export default function AccommodationPage() {
 
       setStatus("Accommodation request submitted");
 
-      setForm({
-        name: "",
-        rollNo: "",
-        email: "",
-        mobile: "",
+      // ❗Do not clear auto-filled fields
+      setForm((prev) => ({
+        ...prev,
         college: "",
         gender: "male",
         days: 1,
-      });
+      }));
     } catch {
       setStatus("Failed to submit accommodation request");
     }
+  }
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center text-white">
+        Loading...
+      </main>
+    );
   }
 
   return (
@@ -60,11 +94,42 @@ export default function AccommodationPage() {
       >
         <h1 className="text-2xl font-bold">Accommodation Registration</h1>
 
-        <Input label="Full name" name="name" value={form.name} onChange={handleChange} />
-        <Input label="Roll number" name="rollNo" value={form.rollNo} onChange={handleChange} />
-        <Input label="Email" name="email" value={form.email} onChange={handleChange} />
-        <Input label="Mobile" name="mobile" value={form.mobile} onChange={handleChange} />
-        <Input label="College" name="college" value={form.college} onChange={handleChange} />
+        {/* ✅ AUTO FILLED + READ ONLY */}
+        <Input
+          label="Full name"
+          name="name"
+          value={form.name}
+          readOnly
+        />
+
+        <Input
+          label="Roll number"
+          name="rollNo"
+          value={form.rollNo}
+          readOnly
+        />
+
+        <Input
+          label="Email"
+          name="email"
+          value={form.email}
+          readOnly
+        />
+
+        <Input
+          label="Mobile"
+          name="mobile"
+          value={form.mobile}
+          readOnly
+        />
+
+        {/* ✅ editable */}
+        <Input
+          label="College"
+          name="college"
+          value={form.college}
+          onChange={handleChange}
+        />
 
         <div>
           <label className="text-sm text-gray-300">Gender</label>
@@ -108,20 +173,25 @@ export default function AccommodationPage() {
 
 function Input({
   label,
+  readOnly,
   ...props
 }: {
   label: string;
   name: string;
   value: string;
-  onChange: any;
+  onChange?: any;
+  readOnly?: boolean;
 }) {
   return (
     <div>
       <label className="text-sm text-gray-300">{label}</label>
       <input
         {...props}
+        readOnly={readOnly}
         required
-        className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3"
+        className={`mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 ${
+          readOnly ? "cursor-not-allowed opacity-80" : ""
+        }`}
       />
     </div>
   );

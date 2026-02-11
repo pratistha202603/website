@@ -16,7 +16,7 @@ const RegistrationSchema = new Schema(
 
     utr: { type: String, required: true },
 
-    paid: { type: Boolean, default: false },
+    paid: { type: Boolean, default: true },
     verified: { type: Boolean, default: false },
 
     eventTitle: { type: String, required: true },
@@ -34,9 +34,10 @@ const RegistrationSchema = new Schema(
    One user → one registration per event
 */
 RegistrationSchema.index(
-  { userId: 1, eventTitle: 1 },
+  { userId: 1, eventTitle: 1, eventType: 1 },
   { unique: true }
 );
+
 
 export const Registration =
   models.Registration || model("Registration", RegistrationSchema);
