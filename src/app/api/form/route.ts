@@ -13,7 +13,9 @@ export async function POST(req: Request) {
 
     await connectDB();
 
-    const userId = cookies().get("userId")?.value;
+   const cookieStore = await cookies();
+const userId = cookieStore.get("userId")?.value;
+
 
     if (!userId) {
       return NextResponse.json(
