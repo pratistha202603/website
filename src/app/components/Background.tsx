@@ -24,9 +24,11 @@ export default function Background({
           ease: "linear",
         }}
         style={{
-          background:
-            "linear-gradient(120deg,#020617,#0ea5e9,#6366f1,#22c55e,#020617)",
-          backgroundSize: "300% 300%",
+          // background:
+          //   "linear-gradient(120deg,#020617,#0ea5e9,#6366f1,#22c55e,#020617)",
+          // backgroundSize: "300% 300%",
+          background: "linear-gradient(180deg, #0f2a44, 0%, #1b3b6f, 100%)"
+          // backgroundSize: "100% 200%",
         }}
       />
 

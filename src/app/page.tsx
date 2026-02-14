@@ -11,7 +11,7 @@ export default function Home() {
         Welcome to the Annual Tech Fest
       </span>
 
-      <h1 className="font-orbitron flex gap-3 text-4xl font-extrabold sm:text-6xl md:text-7xl lg:text-8xl">
+      {/* <h1 className="font-orbitron flex gap-3 text-4xl font-extrabold sm:text-6xl md:text-7xl lg:text-8xl">
         {words.map((word, i) => (
           <motion.span
             key={word}
@@ -31,7 +31,8 @@ export default function Home() {
             {word}
           </motion.span>
         ))}
-      </h1>
+      </h1> */}
+      <img src="./pratistha logo.png" alt="" />
 
       <a
         href="/home"

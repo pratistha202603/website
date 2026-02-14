@@ -9,6 +9,8 @@ type Candidate = {
   email: string;
   mobile: string;
   utr: string;
+  verified: boolean;
+
 };
 
 type EventData = {
@@ -140,7 +142,8 @@ export default function CoordinatorsPage() {
                         <th className="p-2 text-left">Roll No</th>
                         <th className="p-2 text-left">Email</th>
                         <th className="p-2 text-left">Mobile</th>
-                        <th className="p-2 text-left">UTR</th>
+                        {/* <th className="p-2 text-left">UTR</th> */}
+                        <th className="p-2 text-left">Finance Status</th>
 
                       </tr>
                     </thead>
@@ -151,7 +154,22 @@ export default function CoordinatorsPage() {
                           <td className="p-2">{c.rollNo}</td>
                           <td className="p-2">{c.email}</td>
                           <td className="p-2">{c.mobile}</td>
-                          <td className="p-2">{c.utr}</td>
+                          {/* <td className="p-2">{c.utr}</td> */}
+                         <td className="p-2">
+  <span
+    className={`inline-block min-w-[90px] text-center px-3 py-1 rounded-full text-xs font-semibold ${
+      c.verified
+        ? "bg-emerald-500/20 text-emerald-400"
+        : "bg-yellow-500/20 text-yellow-400"
+    }`}
+  >
+    {c.verified ? "Verified" : "Pending"}
+  </span>
+</td>
+
+
+
+
 
                         </tr>
                       ))}

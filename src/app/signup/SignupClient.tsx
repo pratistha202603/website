@@ -64,65 +64,97 @@ export default function SignupClient() {
   }
 
   return (
-    <main
-      className="min-h-screen flex items-center justify-center text-white
-      bg-gradient-to-br from-cyan-900/40 via-black to-emerald-900/30"
-    >
+    <main className="min-h-screen flex items-center justify-center text-white pt-20 m-3">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-sm rounded-xl border border-white/10
-        bg-white/5 backdrop-blur-xl p-6 space-y-4 shadow-xl"
+        bg-white/5 backdrop-blur-xl p-6 space-y-5 shadow-xl"
       >
         <h1 className="text-xl font-semibold text-center">
           User Signup
         </h1>
 
-        <input
-          name="name"
-          placeholder="Full Name"
-          required
-          value={form.name}
-          onChange={handleChange}
-          className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none"
-        />
+        {/* Full Name */}
+        <div className="space-y-1">
+          <label htmlFor="name" className="text-sm text-white/80">
+            Full Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            required
+            value={form.name}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+            placeholder="full name "
+          />
+        </div>
 
-        <input
-          name="rollNo"
-          placeholder="Roll Number"
-          required
-          value={form.rollNo}
-          onChange={handleChange}
-          className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none"
-        />
+        {/* Roll Number */}
+        <div className="space-y-1">
+          <label htmlFor="rollNo" className="text-sm text-white/80">
+            Roll Number
+          </label>
+          <input
+            id="rollNo"
+            name="rollNo"
+            required
+            value={form.rollNo}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+            placeholder="roll number"
+          />
+        </div>
 
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          value={form.email}
-          onChange={handleChange}
-          className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none"
-        />
+        {/* Email */}
+        <div className="space-y-1">
+          <label htmlFor="email" className="text-sm text-white/80">
+            Email Address
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+            placeholder="email address"
+          />
+        </div>
 
-        <input
-          name="mobile"
-          placeholder="Mobile"
-          required
-          value={form.mobile}
-          onChange={handleChange}
-          className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none"
-        />
+        {/* Mobile */}
+        <div className="space-y-1">
+          <label htmlFor="mobile" className="text-sm text-white/80">
+            Mobile Number
+          </label>
+          <input
+            id="mobile"
+            name="mobile"
+            required
+            value={form.mobile}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+            placeholder="mobile number"
+          />
+        </div>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={form.password}
-          onChange={handleChange}
-          className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none"
-        />
+        {/* Password */}
+        <div className="space-y-1">
+          <label htmlFor="password" className="text-sm text-white/80">
+            Password
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            value={form.password}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+            placeholder="password"
+          />
+        </div>
 
         {msg && (
           <p
@@ -144,6 +176,16 @@ export default function SignupClient() {
         >
           {loading ? <LoadingCircle /> : "Create Account"}
         </button>
+        <div className="text-center text-sm text-gray-400">
+  Already have an account?{" "}
+  <span
+    onClick={() => router.push("/login")}
+    className="text-cyan-300 hover:underline cursor-pointer"
+  >
+    Login
+  </span>
+</div>
+
       </form>
     </main>
   );

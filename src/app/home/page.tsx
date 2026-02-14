@@ -47,9 +47,8 @@ export default function FestHomePage() {
       {/* Hero */}
       <section className="text-center">
                 <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-8 mt-10">Welcome to</div>
-        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent">
-          PRATISTHA 2K26
-        </h1>
+        <img src="/pratistha logo.png" alt="pratistha2026"  className=" mx-auto w-[90%] sm:w-[75%] md:w-[65%] lg:w-[55%] drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:scale-105
+  "/>
 
         <p  className="mt-5 text-gray-300 max-w-xl mx-auto">
           Annual Technical & Cultural Fest – Innovation, Creativity and Technology under one grand celebration.

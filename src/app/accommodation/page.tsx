@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+const PRICE_PER_DAY = 300;
 
 export default function AccommodationPage() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     rollNo: "",
@@ -11,42 +16,84 @@ export default function AccommodationPage() {
     college: "",
     gender: "male",
     days: 1,
+    utr: "",
   });
 
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [countdown, setCountdown] = useState(5);
 
-  // ✅ AUTO FILL
+  const totalAmount = form.days * PRICE_PER_DAY;
+
+  // ✅ AUTO FILL + LOGIN CHECK
   useEffect(() => {
     async function loadUser() {
       try {
-        const res = await fetch("/api/accommodation");
+        const res = await fetch("/api/accommodation", {
+          credentials: "include", // 🔥 IMPORTANT
+        });
+
+        // 🔴 Not logged in
+        if (res.status === 401) {
+          router.push("/signup");
+          return;
+        }
+
         const data = await res.json();
 
-        if (data?.success && data.user) {
-          setForm((prev) => ({
-            ...prev,
-            name: data.user.name || "",
-            rollNo: data.user.rollNo || "",
-            email: data.user.email || "",
-            mobile: data.user.mobile || "",
-          }));
+        if (!data?.success || !data.user) {
+          router.push("/signup");
+          return;
         }
+
+        // ✅ Auto-fill user data
+        setForm((prev) => ({
+          ...prev,
+          name: data.user.name ?? "",
+          rollNo: data.user.rollNo ?? "",
+          email: data.user.email ?? "",
+          mobile: data.user.mobile ?? "",
+        }));
+
       } catch (err) {
         console.error(err);
+        router.push("/signup");
       } finally {
         setLoading(false);
       }
     }
 
     loadUser();
-  }, []);
+  }, [router]);
+
+  // ✅ Countdown Redirect After Success
+  useEffect(() => {
+    if (success) {
+      const interval = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+
+      const timeout = setTimeout(() => {
+        router.push("/home");
+      }, 5000);
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
+    }
+  }, [success, router]);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+
+    setForm({
+      ...form,
+      [name]: name === "days" ? Number(value) : value,
+    });
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -56,74 +103,44 @@ export default function AccommodationPage() {
       const res = await fetch("/api/accommodation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
           ...form,
-          days: Number(form.days),
+          amount: totalAmount,
         }),
       });
 
       if (!res.ok) throw new Error();
 
-      setStatus("Accommodation request submitted");
+      setStatus("Accommodation registered successfully 🎉");
+      setSuccess(true);
 
-      // ❗Do not clear auto-filled fields
-      setForm((prev) => ({
-        ...prev,
-        college: "",
-        gender: "male",
-        days: 1,
-      }));
     } catch {
       setStatus("Failed to submit accommodation request");
     }
   }
 
   if (loading) {
-    return (
-      <main className="min-h-screen flex items-center justify-center text-white">
-        Loading...
-      </main>
-    );
+    return null; // prevents flash before redirect
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 text-white">
+    <main className="min-h-screen flex items-center justify-center px-4 text-white mt-30">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 space-y-4"
       >
-        <h1 className="text-2xl font-bold">Accommodation Registration</h1>
+        <h1 className="text-2xl font-bold">
+          Accommodation Registration
+        </h1>
 
-        {/* ✅ AUTO FILLED + READ ONLY */}
-        <Input
-          label="Full name"
-          name="name"
-          value={form.name}
-          readOnly
-        />
+        {/* Auto-filled */}
+        <Input label="Full name" name="name" value={form.name} readOnly />
+        <Input label="Roll number" name="rollNo" value={form.rollNo} readOnly />
+        <Input label="Email" name="email" value={form.email} readOnly />
+        <Input label="Mobile" name="mobile" value={form.mobile} readOnly />
 
-        <Input
-          label="Roll number"
-          name="rollNo"
-          value={form.rollNo}
-          readOnly
-        />
-
-        <Input
-          label="Email"
-          name="email"
-          value={form.email}
-          readOnly
-        />
-
-        <Input
-          label="Mobile"
-          name="mobile"
-          value={form.mobile}
-          readOnly
-        />
-
-        {/* ✅ editable */}
+        {/* Editable */}
         <Input
           label="College"
           name="college"
@@ -131,6 +148,7 @@ export default function AccommodationPage() {
           onChange={handleChange}
         />
 
+        {/* Gender */}
         <div>
           <label className="text-sm text-gray-300">Gender</label>
           <select
@@ -144,25 +162,62 @@ export default function AccommodationPage() {
           </select>
         </div>
 
+        {/* Days */}
         <div>
-          <label className="text-sm text-gray-300">Number of days</label>
-          <input
-            type="number"
-            min={1}
+          <label className="text-sm text-gray-300">
+            Number of Days
+          </label>
+          <select
             name="days"
             value={form.days}
             onChange={handleChange}
             className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3"
-          />
+          >
+            <option value={1}>1 Day</option>
+            <option value={2}>2 Days</option>
+            <option value={3}>3 Days</option>
+          </select>
         </div>
 
+        {/* Amount */}
+        <div className="rounded-lg bg-cyan-400/10 border border-cyan-400/20 p-3 text-center">
+          <p className="text-sm text-gray-300">
+            Price per day: ₹{PRICE_PER_DAY}
+          </p>
+          <p className="text-lg font-semibold text-cyan-300 mt-1">
+            Total Amount: ₹{totalAmount}
+          </p>
+        </div>
+
+        {/* UTR */}
+        <Input
+          label="UTR Number"
+          name="utr"
+          value={form.utr}
+          onChange={handleChange}
+        />
+
+        {/* Status */}
         {status && (
-          <p className="text-center text-sm text-cyan-300">{status}</p>
+          <p
+            className={`text-center text-sm font-medium ${
+              success ? "text-green-400" : "text-red-400"
+            }`}
+          >
+            {status}
+          </p>
+        )}
+
+        {success && (
+          <p className="text-center text-sm text-gray-400">
+            Redirecting to home in {countdown} seconds...
+          </p>
         )}
 
         <button
           type="submit"
-          className="w-full rounded-lg border border-cyan-400/30 bg-cyan-400/10 py-3 text-cyan-300 hover:bg-cyan-400/20 transition"
+          disabled={success}
+          className="w-full rounded-lg border border-cyan-400/30 bg-cyan-400/10 py-3 text-cyan-300 hover:bg-cyan-400/20 transition disabled:opacity-50"
         >
           Submit
         </button>
