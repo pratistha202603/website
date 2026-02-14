@@ -7,15 +7,38 @@ import User from "@/models/User";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-
     await connectDB();
 
-    const doc = await Accommodation.create(body);
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
 
-    return NextResponse.json({ success: true, data: doc });
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    // 🔐 Decode token
+    const decoded: any = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    );
+
+    const body = await req.json();
+
+    const doc = await Accommodation.create({
+      ...body,
+      userId: decoded.userId, // ✅ FIXED HERE
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: doc,
+    });
+
   } catch (err) {
-    console.error(err);
+    console.error("Accommodation POST Error:", err);
     return NextResponse.json(
       { success: false, message: "Accommodation registration failed" },
       { status: 500 }
@@ -32,26 +55,38 @@ export async function GET() {
     const token = cookieStore.get("token")?.value;
 
     if (!token) {
-      return NextResponse.json({ success: false }, { status: 401 });
+      return NextResponse.json(
+        { success: false },
+        { status: 401 }
+      );
     }
 
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded: any = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    );
 
-    // ✅ FIXED: use userId (not id)
     const user = await User.findById(decoded.userId).select(
       "name email mobile rollNo"
     );
 
     if (!user) {
-      return NextResponse.json({ success: false }, { status: 404 });
+      return NextResponse.json(
+        { success: false },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({
       success: true,
       user,
     });
+
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ success: false }, { status: 500 });
+    console.error("Accommodation GET Error:", err);
+    return NextResponse.json(
+      { success: false },
+      { status: 500 }
+    );
   }
 }

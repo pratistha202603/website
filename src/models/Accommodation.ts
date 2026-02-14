@@ -1,7 +1,19 @@
-import { Schema, models, model } from "mongoose";
+import mongoose, { Schema, models, model } from "mongoose";
+
+
+if (mongoose.models.Accommodation) {
+  delete mongoose.models.Accommodation;
+}
+
 
 const AccommodationSchema = new Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     name: { type: String, required: true },
     rollNo: { type: String, required: true },
     email: { type: String, required: true },
@@ -15,6 +27,8 @@ const AccommodationSchema = new Schema(
     },
 
     days: { type: Number, required: true },
+    amount: { type: Number, required: true },
+    utr: { type: String, required: true },
   },
   { timestamps: true }
 );

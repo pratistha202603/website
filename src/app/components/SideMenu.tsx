@@ -86,7 +86,11 @@ export default function SideMenu() {
           >
             Login
           </button>
+          
         )}
+         <Link href="/profile">
+  My Profile
+</Link>
       </nav>
 
       {/* ---------------- Mobile Hamburger ---------------- */}
@@ -131,6 +135,9 @@ export default function SideMenu() {
               </div>
 
               <nav className="flex flex-col gap-4 text-sm">
+                 <Link href="/profile">
+  My Profile
+</Link>
                 {links.map((l) => (
                   <MenuLink
                     key={l.label}
@@ -165,6 +172,8 @@ export default function SideMenu() {
                     Login
                   </button>
                 )}
+               
+
               </nav>
             </motion.aside>
           </>
