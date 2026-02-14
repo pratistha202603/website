@@ -83,7 +83,7 @@ export default function CoordinatorsPage() {
   }
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-16 text-white">
+    <main className="max-w-6xl mx-auto px-6 py-16 text-white mt-20">
 
       <div className="flex items-center justify-between mb-6">
         <div>

@@ -2,191 +2,208 @@
 
 import { useEffect, useState } from "react";
 
-type FormType = {
+const ADMIN_PASSWORD = "admin123"; // 🔥 Change this
+
+type AccommodationType = {
+  _id: string;
   name: string;
   rollNo: string;
   email: string;
   mobile: string;
   college: string;
-  gender: "male" | "female";
+  gender: string;
   days: number;
-  price: number;
+  utr: string;
+  amount: number;
+  createdAt: string;
 };
 
-const PRICE_PER_DAY = 500;
+export default function AccommodationAdminPage() {
+  const [data, setData] = useState<AccommodationType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [genderFilter, setGenderFilter] = useState("all");
 
-export default function AccommodationPage() {
-  const [form, setForm] = useState<FormType>({
-    name: "",
-    rollNo: "",
-    email: "",
-    mobile: "",
-    college: "",
-    gender: "male",
-    days: 1,
-    price: 500,
-  });
+  const [authenticated, setAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const [msg, setMsg] = useState("");
-
-  /* ✅ auto fill */
+  // 🔐 Check session storage
   useEffect(() => {
-    async function loadUser() {
-      const res = await fetch("/api/accommodation", {
-        credentials: "include",
-      });
+    const saved = sessionStorage.getItem("accommodation_admin_auth");
+    if (saved === "true") {
+      setAuthenticated(true);
+    }
+  }, []);
 
-      const json = await res.json();
+  // 🔐 Handle Login
+  function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
 
-      if (json.success && json.user) {
-        setForm((prev) => ({
-          ...prev,
-          name: json.user.name || "",
-          rollNo: json.user.rollNo || "",
-          email: json.user.email || "",
-          mobile: json.user.mobile || "",
-        }));
+    if (password === ADMIN_PASSWORD) {
+      setAuthenticated(true);
+      sessionStorage.setItem("accommodation_admin_auth", "true");
+    } else {
+      setError("Incorrect password");
+    }
+  }
+
+  // 🔥 Fetch data only after authentication
+  useEffect(() => {
+    if (!authenticated) return;
+
+    async function loadData() {
+      try {
+        const res = await fetch("/api/admin/accommodation", {
+          cache: "no-store",
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          setData(result.data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     }
 
-    loadUser();
-  }, []);
+    loadData();
+  }, [authenticated]);
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) {
-    const { name, value } = e.target;
+  // 🔒 PASSWORD SCREEN
+  if (!authenticated) {
+    return (
+      <main className="min-h-screen flex items-center justify-center text-white">
+        <form
+          onSubmit={handleLogin}
+          className="w-full max-w-sm rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 space-y-4"
+        >
+          <h2 className="text-2xl font-semibold text-center">
+            Admin Login
+          </h2>
 
-    if (name === "days") {
-      const d = Number(value);
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
+          />
 
-      setForm((prev) => ({
-        ...prev,
-        days: d,
-        price: d * PRICE_PER_DAY,   // ✅ auto price
-      }));
-      return;
-    }
+          {error && (
+            <p className="text-red-400 text-sm text-center">
+              {error}
+            </p>
+          )}
 
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+          <button
+            type="submit"
+            className="w-full rounded-lg border border-cyan-400/30 bg-cyan-400/10 py-3 text-cyan-300 hover:bg-cyan-400/20 transition"
+          >
+            Login
+          </button>
+        </form>
+      </main>
+    );
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setMsg("");
-
-    const res = await fetch("/api/accommodation", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    const json = await res.json();
-
-    if (!json.success) {
-      setMsg("Accommodation registration failed");
-      return;
-    }
-
-    setMsg("Accommodation registered successfully ✅");
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center text-white">
+        Loading...
+      </main>
+    );
   }
+
+  const filteredData =
+    genderFilter === "all"
+      ? data
+      : data.filter((d) => d.gender === genderFilter);
+
+  const totalRevenue = filteredData.reduce(
+    (sum, item) => sum + (item.amount || 0),
+    0
+  );
 
   return (
-    <main className="min-h-screen flex items-center justify-center text-white px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-3 bg-white/5 p-6 rounded-xl border border-white/10"
-      >
-        <h1 className="text-xl font-semibold text-center">
-          Accommodation Form
-        </h1>
+    <main className="min-h-screen px-6 py-16 text-white mt-20">
+      <h1 className="text-3xl font-bold mb-6">
+        Accommodation Registrations
+      </h1>
 
-        <input
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="Name"
-          className="w-full p-2 rounded bg-white/10"
-          required
-        />
-
-        <input
-          name="rollNo"
-          value={form.rollNo}
-          onChange={handleChange}
-          placeholder="Roll No"
-          className="w-full p-2 rounded bg-white/10"
-          required
-        />
-
-        <input
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="w-full p-2 rounded bg-white/10"
-          required
-        />
-
-        <input
-          name="mobile"
-          value={form.mobile}
-          onChange={handleChange}
-          placeholder="Mobile"
-          className="w-full p-2 rounded bg-white/10"
-          required
-        />
-
-        <input
-          name="college"
-          value={form.college}
-          onChange={handleChange}
-          placeholder="College"
-          className="w-full p-2 rounded bg-white/10"
-          required
-        />
+      <div className="mb-6 flex items-center gap-4">
+        <label className="text-gray-300">Filter by Gender:</label>
 
         <select
-          name="gender"
-          value={form.gender}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-white/10"
+          value={genderFilter}
+          onChange={(e) => setGenderFilter(e.target.value)}
+          className="rounded-lg border border-white/10 bg-white/10 px-4 py-2"
         >
-          <option value="male">Boy</option>
-          <option value="female">Girl</option>
+          <option value="all">All</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
 
-        {/* ✅ Days selection */}
-        <select name="days"
-          value={form.days}
-          onChange={handleChange}
-          className="w-full p-2 rounded bg-white/10"
-        >
-          <option value={1}>1 Day</option>
-          <option value={2}>2 Days</option>
-        </select>
-
-        {/* ✅ Price display */}
-        <div className="text-center text-cyan-300 font-semibold">
-          Total Price : ₹{form.price}
+        <div className="ml-auto text-cyan-300 font-semibold">
+          Total Revenue: ₹{totalRevenue}
         </div>
 
-        {msg && (
-          <p className="text-sm text-center text-green-400">
-            {msg}
-          </p>
-        )}
-
         <button
-          type="submit"
-          className="w-full p-2 rounded bg-cyan-500/20 text-cyan-300"
+          onClick={() => {
+            sessionStorage.removeItem("accommodation_admin_auth");
+            setAuthenticated(false);
+          }}
+          className="ml-4 rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2 text-red-300"
         >
-          Submit
+          Logout
         </button>
-      </form>
+      </div>
+
+      {filteredData.length === 0 ? (
+        <p className="text-gray-400">No registrations found.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm border border-white/10">
+            <thead className="bg-white/10">
+              <tr>
+                <th className="p-3 text-left">Name</th>
+                <th className="p-3 text-left">Roll No</th>
+                <th className="p-3 text-left">Email</th>
+                <th className="p-3 text-left">Mobile</th>
+                <th className="p-3 text-left">College</th>
+                <th className="p-3 text-left">Gender</th>
+                <th className="p-3 text-left">Days</th>
+                <th className="p-3 text-left">Amount</th>
+                <th className="p-3 text-left">UTR</th>
+                <th className="p-3 text-left">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredData.map((d) => (
+                <tr key={d._id} className="border-t border-white/10">
+                  <td className="p-3">{d.name}</td>
+                  <td className="p-3">{d.rollNo}</td>
+                  <td className="p-3">{d.email}</td>
+                  <td className="p-3">{d.mobile}</td>
+                  <td className="p-3">{d.college}</td>
+                  <td className="p-3 capitalize">{d.gender}</td>
+                  <td className="p-3">{d.days}</td>
+                  <td className="p-3 text-cyan-300 font-semibold">
+                    ₹{d.amount ?? 0}
+                  </td>
+                  <td className="p-3">{d.utr || "Not Provided"}</td>
+                  <td className="p-3">
+                    {new Date(d.createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
   );
 }

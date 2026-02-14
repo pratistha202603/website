@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ALL_EVENTS = [
   { label: "AI & Machine Learning Bootcamp", slug: "ai-machine-learning-bootcamp" },
@@ -23,6 +24,8 @@ const ALL_EVENTS = [
 ];
 
 export default function AddCoordinatorPage() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [userId, setUserId] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
@@ -78,7 +81,7 @@ export default function AddCoordinatorPage() {
       >
         <h1 className="text-3xl font-semibold">Add Coordinator</h1>
 
-        {/* name */}
+        {/* Coordinator Name */}
         <div>
           <label className="text-lg text-gray-200">Coordinator name</label>
           <input
@@ -89,7 +92,7 @@ export default function AddCoordinatorPage() {
           />
         </div>
 
-        {/* userid */}
+        {/* User ID */}
         <div>
           <label className="text-lg text-gray-200">User ID</label>
           <input
@@ -101,7 +104,7 @@ export default function AddCoordinatorPage() {
           />
         </div>
 
-        {/* chips */}
+        {/* Selected Event Chips */}
         {selected.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {selected.map((slug) => {
@@ -127,7 +130,7 @@ export default function AddCoordinatorPage() {
           </div>
         )}
 
-        {/* open modal */}
+        {/* Event Picker Button */}
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -142,7 +145,7 @@ export default function AddCoordinatorPage() {
           <span className="text-xl">▾</span>
         </button>
 
-        {/* modal picker */}
+        {/* Modal */}
         {open && (
           <>
             <div
@@ -158,9 +161,7 @@ export default function AddCoordinatorPage() {
               bg-slate-950 p-4 shadow-2xl"
             >
               <div className="flex items-center justify-between mb-3">
-                <p className="text-lg font-semibold">
-                  Select events
-                </p>
+                <p className="text-lg font-semibold">Select events</p>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
@@ -202,18 +203,30 @@ export default function AddCoordinatorPage() {
           </>
         )}
 
+        {/* Status Message */}
         {status && (
           <p className="text-center text-cyan-300">
             {status}
           </p>
         )}
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full rounded-xl border border-cyan-400/30 bg-cyan-400/10 py-3.5 text-lg font-medium text-cyan-300 hover:bg-cyan-400/20 transition"
         >
-          Create coordinator
+          Create Coordinator
         </button>
+
+        {/* Login Button */}
+        <button
+          type="button"
+          onClick={() => router.push("./login")}
+          className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-base text-gray-300 hover:bg-white/10 transition"
+        >
+          Go to Login Page
+        </button>
+
       </form>
     </main>
   );

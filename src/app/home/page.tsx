@@ -47,8 +47,7 @@ export default function FestHomePage() {
       {/* Hero */}
       <section className="text-center">
                 <div className="text-center text-4xl font-bold text-amber-200 m-2 mb-8 mt-10">Welcome to</div>
-        <img src="/pratistha logo.png" alt="pratistha2026"  className=" mx-auto w-[90%] sm:w-[75%] md:w-[65%] lg:w-[55%] drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:scale-105
-  "/>
+        <img src="/pratistha logo.png" alt="pratistha2026"  className=" mx-auto w-[90%] sm:w-[75%] md:w-[65%] lg:w-[55%] drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:scale-105"/>
 
         <p  className="mt-5 text-gray-300 max-w-xl mx-auto">
           Annual Technical & Cultural Fest – Innovation, Creativity and Technology under one grand celebration.
@@ -231,6 +230,77 @@ export default function FestHomePage() {
           ))}
         </div>
       </section>
+
+      {/* ---------------- Footer Section ---------------- */}
+
+<section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8">
+
+  {/* Social Media Buttons */}
+  <div>
+    <h3 className="text-lg font-semibold mb-4 text-gray-300">
+      Connect With Us
+    </h3>
+
+    <div className="flex justify-center gap-6 flex-wrap">
+      <a
+        href="https://youtube.com"
+        target="_blank"
+        className="rounded-lg border border-red-500/30 bg-red-500/10 px-6 py-2 text-red-400 hover:bg-red-500/20 transition"
+      >
+        YouTube
+      </a>
+
+      <a
+        href="https://instagram.com"
+        target="_blank"
+        className="rounded-lg border border-pink-500/30 bg-pink-500/10 px-6 py-2 text-pink-400 hover:bg-pink-500/20 transition"
+      >
+        Instagram
+      </a>
+
+      <a
+        href="mailto:pratistha@jntugv.edu.in"
+        className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-6 py-2 text-amber-300 hover:bg-amber-400/20 transition"
+      >
+        Gmail
+      </a>
+    </div>
+  </div>
+
+  {/* Coordinator Access Buttons */}
+  <div className="pt-8">
+    <h3 className="text-sm text-gray-400 mb-3">
+      Coordinator Access
+    </h3>
+
+    <div className="flex justify-center gap-4 flex-wrap">
+
+      <Link
+        href="/admin/finance"
+        className="text-sm rounded-lg border border-green-400/20 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
+      >
+        Finance Login
+      </Link>
+
+      <Link
+        href="/admin/accommodation"
+        className="text-sm rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-emerald-300 hover:bg-emerald-400/20 transition"
+      >
+        Accommodation Login
+      </Link>
+
+      <Link
+        href="/coordinators"
+        className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
+      >
+        Events Login
+      </Link>
+
+    </div>
+  </div>
+
+</section>
+
 
     </main>
   );
