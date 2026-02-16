@@ -136,9 +136,9 @@ export default function AccommodationPage() {
 
         {/* Auto-filled */}
         <Input label="Full name" name="name" value={form.name} readOnly />
-        <Input label="Roll number" name="rollNo" value={form.rollNo} readOnly />
+      
         <Input label="Email" name="email" value={form.email} readOnly />
-        <Input label="Mobile" name="mobile" value={form.mobile} readOnly />
+     
 
         {/* Editable */}
         <Input
@@ -147,6 +147,20 @@ export default function AccommodationPage() {
           value={form.college}
           onChange={handleChange}
         />
+        <Input
+  label="Roll number"
+  name="rollNo"
+  value={form.rollNo}
+  onChange={handleChange}
+/>
+
+<Input
+  label="Mobile"
+  name="mobile"
+  value={form.mobile}
+  onChange={handleChange}
+/>
+
 
         {/* Gender */}
         <div>
