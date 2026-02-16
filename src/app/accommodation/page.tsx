@@ -10,7 +10,6 @@ export default function AccommodationPage() {
 
   const [form, setForm] = useState({
     name: "",
-    rollNo: "",
     email: "",
     mobile: "",
     college: "",
@@ -51,7 +50,7 @@ export default function AccommodationPage() {
         setForm((prev) => ({
           ...prev,
           name: data.user.name ?? "",
-          rollNo: data.user.rollNo ?? "",
+            college: data.user.college ?? "",
           email: data.user.email ?? "",
           mobile: data.user.mobile ?? "",
         }));
@@ -147,12 +146,6 @@ export default function AccommodationPage() {
           value={form.college}
           onChange={handleChange}
         />
-        <Input
-  label="Roll number"
-  name="rollNo"
-  value={form.rollNo}
-  onChange={handleChange}
-/>
 
 <Input
   label="Mobile"
@@ -164,8 +157,9 @@ export default function AccommodationPage() {
 
         {/* Gender */}
         <div>
-          <label className="text-sm text-gray-300">Gender</label>
+          <label className="text-sm text-gray-300" htmlFor="gender">Gender</label>
           <select
+          id="gender"
             name="gender"
             value={form.gender}
             onChange={handleChange}
@@ -178,10 +172,11 @@ export default function AccommodationPage() {
 
         {/* Days */}
         <div>
-          <label className="text-sm text-gray-300">
+          <label className="text-sm text-gray-300" htmlFor="days">
             Number of Days
           </label>
           <select
+          id="days"
             name="days"
             value={form.days}
             onChange={handleChange}

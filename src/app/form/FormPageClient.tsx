@@ -20,7 +20,7 @@ const [success, setSuccess] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
-    rollNo: "",
+    college:"",
     email: "",
     mobile: "",
   });
@@ -54,7 +54,7 @@ const [success, setSuccess] = useState(false);
           console.log("ME API USER =>", data.user); // 👈 add this
           setForm({
             name: data.user.name || "",
-            rollNo: data.user.rollNo || "",
+            college: data.user.college || "",
             email: data.user.email || "",
             mobile: data.user.mobile || "",
           });
@@ -111,7 +111,7 @@ const [success, setSuccess] = useState(false);
         },
         body: JSON.stringify({
           name: form.name,
-          rollNo: form.rollNo,
+          college: form.college,
           email: form.email,
           mobile: form.mobile,
           eventTitle,
@@ -174,8 +174,9 @@ setTimeout(() => {
         </div>
 
         <div>
-          <label className="text-sm text-gray-300">Full Name</label>
+          <label className="text-sm text-gray-300" htmlFor="fullname">Full Name</label>
           <input
+          id="fullname"
             name="name"
             required
             value={form.name}
@@ -185,11 +186,12 @@ setTimeout(() => {
         </div>
 
         <div>
-          <label className="text-sm text-gray-300">Roll Number</label>
+          <label className="text-sm text-gray-300" htmlFor="college">College</label>
           <input
-            name="rollNo"
+          id="college"
+            name="college"
             required
-            value={form.rollNo}
+            value={form.college}
             onChange={handleChange}
             className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
           />
@@ -197,8 +199,9 @@ setTimeout(() => {
 
         {/* ✅ email is auto-filled and NOT editable */}
         <div>
-          <label className="text-sm text-gray-300">Email</label>
+          <label className="text-sm text-gray-300" htmlFor="email">Email</label>
           <input
+          id="email"
             name="email"
             type="email"
             value={form.email}
@@ -208,8 +211,9 @@ setTimeout(() => {
         </div>
 
         <div>
-          <label className="text-sm text-gray-300">Mobile</label>
+          <label className="text-sm text-gray-300" htmlFor="mobile">Mobile</label>
           <input
+          id="mobile"
             name="mobile"
             required
             value={form.mobile}

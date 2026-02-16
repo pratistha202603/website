@@ -16,7 +16,7 @@ const UserSchema = new Schema(
     },
 
     // 👇 will be filled later from form
-    rollNo: { type: String },
+    college: { type: String },
     mobile: { type: String },
   },
   { timestamps: true }

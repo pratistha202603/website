@@ -9,7 +9,7 @@ export default function SignupClient() {
 
   const [form, setForm] = useState({
     name: "",
-    rollNo: "",
+    college:"",
     email: "",
     mobile: "",
     password: "",
@@ -92,14 +92,14 @@ export default function SignupClient() {
 
         {/* Roll Number */}
         <div className="space-y-1">
-          <label htmlFor="rollNo" className="text-sm text-white/80">
-            Roll Number
+          <label htmlFor="college" className="text-sm text-white/80">
+            College Name
           </label>
           <input
-            id="rollNo"
-            name="rollNo"
+            id="college"
+            name="college"
             required
-            value={form.rollNo}
+            value={form.college}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
             placeholder="roll number"

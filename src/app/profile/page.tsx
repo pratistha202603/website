@@ -23,7 +23,7 @@ type Accommodation = {
 type User = {
   name: string;
   email: string;
-  rollNo: string;
+  college :string;
   mobile: string;
 };
 
@@ -78,7 +78,7 @@ export default function ProfilePage() {
         </h1>
 
         <p><span className="text-gray-400">Name:</span> {user?.name}</p>
-        <p><span className="text-gray-400">Roll No:</span> {user?.rollNo}</p>
+        <p><span className="text-gray-400">College:</span> {user?.college}</p>
         <p><span className="text-gray-400">Email:</span> {user?.email}</p>
         <p><span className="text-gray-400">Mobile:</span> {user?.mobile}</p>
       </div>
