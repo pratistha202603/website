@@ -102,7 +102,7 @@ export default function SignupClient() {
             value={form.college}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
-            placeholder="roll number"
+            placeholder="College Name"
           />
         </div>
 

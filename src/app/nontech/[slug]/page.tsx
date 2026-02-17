@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const nonTechnicalEvents = [
   {
-    title: "Treasure Hunt",
+    title: "Photo Contest",
     description: "Solve clues and reach the final destination.",
     date: "11 March 2026",
     time: "2:00 PM – 4:00 PM",
@@ -13,7 +13,7 @@ const nonTechnicalEvents = [
     coordinator: "Student Council",
   },
   {
-    title: "Photography Contest",
+    title: "Treasure Hunt",
     description: "Show your creativity through the lens.",
     date: "10 March 2026",
     time: "10:00 AM – 11:30 AM",
@@ -21,7 +21,7 @@ const nonTechnicalEvents = [
     coordinator: "Cultural Club",
   },
   {
-    title: "Poster Designing",
+    title: "Rubics Cube",
     description: "Design creative posters on given themes.",
     date: "10 March 2026",
     time: "12:00 PM – 1:30 PM",
@@ -29,7 +29,7 @@ const nonTechnicalEvents = [
     coordinator: "Fine Arts Club",
   },
   {
-    title: "Fun Quiz",
+    title: "Project Expo",
     description: "Enjoy a fun-filled quiz with general topics.",
     date: "11 March 2026",
     time: "10:00 AM – 11:00 AM",
@@ -37,7 +37,7 @@ const nonTechnicalEvents = [
     coordinator: "Literary Club",
   },
   {
-    title: "Reels Challenge",
+    title: "Free-fire Squad",
     description: "Create and submit an exciting short reel.",
     date: "11 March 2026",
     time: "1:00 PM – 3:00 PM",
@@ -45,7 +45,7 @@ const nonTechnicalEvents = [
     coordinator: "Media Team",
   },
   {
-    title: "Open Mic",
+    title: "Reel Contest",
     description: "Show your talent in singing, comedy or poetry.",
     date: "12 March 2026",
     time: "11:00 AM – 1:00 PM",
@@ -79,7 +79,7 @@ export default function NonTechnicalEventPage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20 text-white">
+    <main className="max-w-3xl mx-auto px-6 py-20 text-white sm:mt-10">
 
       <h1
         className="text-3xl sm:text-4xl font-extrabold mb-6

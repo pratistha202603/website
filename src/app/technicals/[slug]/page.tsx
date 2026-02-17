@@ -6,48 +6,48 @@ import Link from "next/link";
 
 const technicalEvents = [
   {
-    title: "Code Clash",
-    description: "Competitive coding contest to test your problem solving skills.",
+    title: "Clash of CAD",
+    description: "A design competition to test your CAD skills.",
     date: "10 March 2026",
     time: "10:00 AM – 12:00 PM",
     venue: "Computer Lab",
     coordinator: "CSE Department",
   },
   {
-    title: "Hackathon",
-    description: "Build innovative solutions within a limited time.",
+    title: "Brain BUZZ",
+    description: "A quiz competition to challenge your technical knowledge.",
     date: "10 March 2026",
     time: "1:00 PM – 7:00 PM",
     venue: "Innovation Hall",
     coordinator: "Coding Club",
   },
   {
-    title: "Paper Presentation",
-    description: "Present your technical ideas before industry experts.",
+    title: "Sixtopia",
+    description: "Stability Check",
     date: "11 March 2026",
     time: "10:00 AM – 12:00 PM",
     venue: "Seminar Hall",
     coordinator: "Research Cell",
   },
   {
-    title: "Project Expo",
-    description: "Showcase your academic and personal projects.",
+    title: "Technohunt",
+    description: "Who am I",
     date: "11 March 2026",
     time: "1:00 PM – 4:00 PM",
     venue: "Expo Block",
     coordinator: "ECE Department",
   },
   {
-    title: "Debug the Code",
-    description: "Find and fix errors in given programs.",
+    title: "Abhivyakti",
+    description: "A powepoint presentation competition to express your ideas on a technical topic.",
     date: "12 March 2026",
     time: "10:00 AM – 11:30 AM",
     venue: "Programming Lab",
     coordinator: "IT Department",
   },
   {
-    title: "Tech Quiz",
-    description: "Fast paced quiz based on technology and computers.",
+    title: "Geometry",
+    description: "Surveying Competition",
     date: "12 March 2026",
     time: "12:00 PM – 1:00 PM",
     venue: "Lecture Hall",
@@ -80,12 +80,10 @@ export default function TechnicalEventPage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20 text-white">
+    <main className="max-w-3xl mx-auto px-6 py-20 text-white sm:mt-10">
 
       <h1
-        className="text-3xl sm:text-4xl font-extrabold mb-6
-        bg-gradient-to-r from-blue-400 to-indigo-400
-        bg-clip-text text-transparent"
+        className="text-3xl sm:text-4xl font-extrabold mb-6 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent"
       >
         {event.title}
       </h1>
@@ -103,11 +101,7 @@ export default function TechnicalEventPage() {
 
       <Link
         href={`/form?event=${getSlug(event.title)} &type=technical`}
-        className="inline-block rounded-lg
-        border border-blue-400/30
-        bg-blue-400/10 px-6 py-3
-        font-medium text-blue-300
-        hover:bg-blue-400/20 transition"
+        className="inline-block rounded-lg border border-blue-400/30  bg-blue-400/10 px-6 py-3 font-medium text-blue-300  hover:bg-blue-400/20 transition"
       >
         Register for this Event
       </Link>

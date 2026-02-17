@@ -13,22 +13,22 @@ export default function FestHomePage() {
   ];
 
   const technical = [
-    "Code Clash",
-    "Hackathon",
-    "Paper Presentation",
-    "Project Expo",
-    "Debug the Code",
-    "Tech Quiz",
+    "Clash of CAD",
+    "Brain BUZZ",
+    "Sixtopia",
+    "Technohunt",
+    "abhivyakti",
+    "Geometry",
   ];
 
   // ✅ must match /nontech/[slug] page titles
   const nonTechnical = [
+    "Photo Contest",
     "Treasure Hunt",
-    "Photography Contest",
-    "Poster Designing",
-    "Fun Quiz",
-    "Reels Challenge",
-    "Open Mic",
+    "Rubics Cube",
+    "Project Expo",
+    "Free-fire Squad",
+    "Reel Contest",
   ];
 
   const sponsors = Array.from({ length: 6 }, (_, i) => `Sponsor ${i + 1}`);
