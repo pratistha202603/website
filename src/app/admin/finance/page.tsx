@@ -1,21 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { EVENT_PRICES } from "@/helpers/eventPrices";
 
-const FINANCE_PASSWORD = "finance123";
 
 type Payment = {
   _id: string;
-  type: "event" | "accommodation";
-  name: string;
-  email: string;
-  mobile?: string;
-  amount: number;
+  eventTitle: string;
+  eventType: string;
+  userId: {
+    name: string;
+    email: string;
+    mobile?: string;
+  };
   utr: string;
   verified: boolean;
 };
 
+
 export default function FinancePage() {
+  const FINANCE_PASSWORD =
+    process.env.NEXT_PUBLIC_FINANCE_PASSWORD;
+
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,6 +29,7 @@ export default function FinancePage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // 🔐 Check session
   useEffect(() => {
     const saved = sessionStorage.getItem("finance_auth");
     if (saved === "true") {
@@ -45,14 +52,18 @@ export default function FinancePage() {
   async function loadData() {
     setLoading(true);
 
-    const res = await fetch("/api/admin/pending-payments", {
-      cache: "no-store",
-    });
+    try {
+      const res = await fetch("/api/admin/pending-payments", {
+        cache: "no-store",
+      });
 
-    const result = await res.json();
+      const result = await res.json();
 
-    if (result.success) {
-      setPayments(result.data);
+      if (result.success) {
+        setPayments(result.data);
+      }
+    } catch (err) {
+      console.error(err);
     }
 
     setLoading(false);
@@ -78,14 +89,15 @@ export default function FinancePage() {
     }
   }
 
+  // 🔐 LOGIN UI
   if (!authenticated) {
     return (
-      <main className="min-h-screen flex items-center justify-center text-white">
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f3d3e] via-[#0b3a3b] to-[#072c2d] text-white">
         <form
           onSubmit={handleLogin}
           className="w-full max-w-sm rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 space-y-4"
         >
-          <h2 className="text-2xl font-semibold text-center">
+          <h2 className="text-2xl font-semibold text-center text-cyan-400">
             Finance Login
           </h2>
 
@@ -115,18 +127,30 @@ export default function FinancePage() {
     );
   }
 
+  // 🔄 Loading
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-white">
+      <div className="min-h-screen flex items-center justify-center text-white bg-black">
         Loading...
       </div>
     );
   }
 
+  function formatEventTitle(slug: string) {
+  return slug
+    .split("-")
+    .map(
+      (word) =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join(" ");
+}
+
+  // 📊 Dashboard
   return (
-    <div className="min-h-screen px-6 py-16 text-white mt-20 space-y-6">
+    <div className="min-h-screen px-6 py-16 text-white mt-20 space-y-6 bg-gradient-to-br from-[#0f3d3e] via-[#0b3a3b] to-[#072c2d]">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-semibold">
+        <h1 className="text-3xl font-semibold text-cyan-400">
           Finance Payment Verification
         </h1>
 
@@ -135,40 +159,69 @@ export default function FinancePage() {
             sessionStorage.removeItem("finance_auth");
             setAuthenticated(false);
           }}
-          className="rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2 text-red-300"
+          className="rounded-lg border border-red-400/30 bg-red-400/10 px-4 py-2 text-red-300 hover:bg-red-400/20 transition"
         >
           Logout
         </button>
       </div>
 
+      {/* Summary */}
+      <div className="flex gap-6 text-sm">
+        <p>
+          Pending Payments:{" "}
+          <span className="text-cyan-300 font-medium">
+            {payments.length}
+          </span>
+        </p>
+
+        <p>
+          Total Amount:{" "}
+          <span className="text-green-300 font-medium">
+         ₹
+{payments.reduce(
+  (sum, p) =>
+    sum + (EVENT_PRICES[p.eventTitle]?.price || 0),
+  0
+)}
+ 
+          </span>
+        </p>
+      </div>
+
       {payments.length === 0 && (
-        <p className="text-gray-400">No pending payments.</p>
+        <p className="text-gray-400">
+          No pending payments.
+        </p>
       )}
 
       <div className="space-y-4">
         {payments.map((p) => (
           <div
             key={p._id}
-            className="rounded-xl border border-white/10 bg-white/5 p-4 flex justify-between items-center"
+            className="rounded-xl border border-white/10 bg-white/5 p-4 flex justify-between items-center backdrop-blur-md"
           >
             <div>
               <p className="font-medium">
-                {p.name}{" "}
-                <span className="text-xs px-2 py-1 rounded-md bg-cyan-400/20 text-cyan-300 ml-2">
-                  {p.type === "event" ? "Event" : "Accommodation"}
-                </span>
+                {p.userId?.name}
+              <span className="text-xs px-2 py-1 rounded-md bg-cyan-400/20 text-cyan-300 ml-2">
+  {formatEventTitle(p.eventTitle)}
+</span>
+
               </p>
 
-              <p className="text-sm text-gray-400">{p.email}</p>
+              <p className="text-sm text-gray-400">
+                {p.userId?.email}
+              </p>
 
-              {p.mobile && (
+              {p.userId?.mobile && (
                 <p className="text-sm text-gray-400">
-                  Mobile: {p.mobile}
+                  Mobile: {p.userId?.mobile}
                 </p>
               )}
 
               <p className="text-sm">
-                Amount: ₹{p.amount}
+               Amount: ₹{EVENT_PRICES[p.eventTitle]?.price || 0}
+
               </p>
 
               <p className="text-sm">
@@ -179,12 +232,20 @@ export default function FinancePage() {
               </p>
             </div>
 
-            <button
-              onClick={() => verifyPayment(p._id, p.type)}
-              className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
-            >
-              Mark Verified
-            </button>
+           <button
+  onClick={() =>
+    verifyPayment(
+      p._id,
+      p.eventType === "accommodation"
+        ? "accommodation"
+        : "event"
+    )
+  }
+  className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
+>
+  Mark Verified
+</button>
+
           </div>
         ))}
       </div>

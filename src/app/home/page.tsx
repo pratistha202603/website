@@ -9,7 +9,7 @@ export default function FestHomePage() {
 
 const workshops = [
   {
-    title: "",
+    title: "Primavera p6",
     img: "/tevents/primavera.jpeg",
   },
 ]
@@ -173,7 +173,7 @@ const workshops = [
     {nonTechnical.map((t, i) => (
       <Link
         key={t.title}
-        href={`/non-technicals/${getSlug(t.title)}`}
+        href={`/nontech/${getSlug(t.title)}`}
         className="block"
       >
         <MiniCard

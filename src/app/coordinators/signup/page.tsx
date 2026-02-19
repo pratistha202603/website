@@ -3,25 +3,27 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const ALL_EVENTS = [
-  { label: "AI & Machine Learning Bootcamp", slug: "ai-machine-learning-bootcamp" },
-  { label: "Web Development with Next.js", slug: "web-development-with-next-js" },
-  { label: "Data Science with Python", slug: "data-science-with-python" },
+export const ALL_EVENTS = [
+  // Workshop
+  { label: "Primavera P6", slug: "primavera-p6" },
 
-  { label: "Code Clash", slug: "code-clash" },
-  { label: "Hackathon", slug: "hackathon" },
-  { label: "Paper Presentation", slug: "paper-presentation" },
-  { label: "Project Expo", slug: "project-expo" },
-  { label: "Debug the Code", slug: "debug-the-code" },
-  { label: "Tech Quiz", slug: "tech-quiz" },
+  // Technical Events
+  { label: "Clash of CAD", slug: "clash-of-cad" },
+  { label: "Brain Battle", slug: "brain-battle" },
+  { label: "Stickstopia", slug: "stickstopia" },
+  { label: "Instrument IQ", slug: "instrument-iq" },
+  { label: "Presentation Hub", slug: "presentation-hub" },
+  { label: "Geometry", slug: "geometry" },
 
+  // Non-Technical Events
+  { label: "BGMI & FF", slug: "bgmi-ff" },
+  { label: "Photo Reel Contest", slug: "photo-reel-contest" },
   { label: "Treasure Hunt", slug: "treasure-hunt" },
-  { label: "Photography Contest", slug: "photography-contest" },
-  { label: "Poster Designing", slug: "poster-designing" },
-  { label: "Fun Quiz", slug: "fun-quiz" },
-  { label: "Reels Challenge", slug: "reels-challenge" },
-  { label: "Open Mic", slug: "open-mic" },
+  { label: "Image Quiz", slug: "image-quiz" },
+  { label: "Rubics Cube", slug: "rubics-cube" },
+  { label: "Match The Hands", slug: "match-the-hands" },
 ];
+
 
 export default function AddCoordinatorPage() {
   const router = useRouter();

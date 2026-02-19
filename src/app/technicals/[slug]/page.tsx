@@ -22,7 +22,7 @@ const technicalEvents = [
     coordinator: "Coding Club",
   },
   {
-    title: "Project Expo",
+    title: "Stickstopia",
     description: "Stability Check",
     date: "11 March 2026",
     time: "10:00 AM – 12:00 PM",
@@ -30,7 +30,7 @@ const technicalEvents = [
     coordinator: "Research Cell",
   },
   {
-    title: "Technohunt",
+    title: "Instrument IQ",
     description: "Who am I",
     date: "11 March 2026",
     time: "1:00 PM – 4:00 PM",
@@ -38,7 +38,7 @@ const technicalEvents = [
     coordinator: "ECE Department",
   },
   {
-    title: "Abhivyakti",
+    title: "Presentation HUB",
     description: "A powepoint presentation competition to express your ideas on a technical topic.",
     date: "12 March 2026",
     time: "10:00 AM – 11:30 AM",

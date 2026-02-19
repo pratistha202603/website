@@ -3,6 +3,21 @@ import ClientBackground from "@/app/components/ClientBackground";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Pratistha 2K26 | JNTU-GV Technical Fest",
+  description:
+    "Pratistha 2K26 is the annual technical and cultural fest of JNTU-GV College of Engineering Vizianagaram.",
+  keywords: [
+    "Pratistha 2K26",
+    "JNTU GV fest",
+    "Engineering college fest Vizianagaram",
+    "Technical fest Andhra Pradesh",
+    "JNTU-GV workshops",
+    "Civil engineering fest"
+  ],
+};
+
+
 export default function RootLayout({
   children,
 }: {

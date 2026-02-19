@@ -11,6 +11,7 @@ type AccommodationType = {
   days: number;
   utr: string;
   amount: number;
+  verified: boolean;   // ✅ add this
   createdAt: string;
   userId?: {
     name: string;
@@ -18,6 +19,7 @@ type AccommodationType = {
     mobile: string;
   };
 };
+
 
 export default function AccommodationAdminPage() {
   const [data, setData] = useState<AccommodationType[]>([]);
@@ -179,7 +181,10 @@ export default function AccommodationAdminPage() {
                 <th className="p-3 text-left">Days</th>
                 <th className="p-3 text-left">Amount</th>
                 <th className="p-3 text-left">UTR</th>
+                <th className="p-3 text-left">Payment Status</th>
+
                 <th className="p-3 text-left">Date</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -205,6 +210,18 @@ export default function AccommodationAdminPage() {
                   <td className="p-3">
                     {d.utr || "Not Provided"}
                   </td>
+                  <td className="p-3">
+  {d.verified ? (
+    <span className="px-3 py-1 text-xs rounded-full bg-green-500/20 text-green-300">
+      Verified
+    </span>
+  ) : (
+    <span className="px-3 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-300">
+      Pending
+    </span>
+  )}
+</td>
+
                   <td className="p-3">
                     {new Date(d.createdAt).toLocaleDateString()}
                   </td>

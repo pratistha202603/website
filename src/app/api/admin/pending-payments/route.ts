@@ -8,41 +8,41 @@ export async function GET(req: Request) {
   try {
     await connectDB();
 
-    // ✅ Get cookie from request headers manually
-    const cookieHeader = req.headers.get("cookie");
+    // // ✅ Get cookie from request headers manually
+    // // const cookieHeader = req.headers.get("cookie");
 
-    if (!cookieHeader) {
-      return NextResponse.json(
-        { success: false },
-        { status: 401 }
-      );
-    }
+    // // if (!cookieHeader) {
+    // //   return NextResponse.json(
+    // //     { success: false },
+    // //     { status: 401 }
+    // //   );
+    // // }
 
-    const token = cookieHeader
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1];
+    // const token = cookieHeader
+    //   .split("; ")
+    //   .find((row) => row.startsWith("token="))
+    //   ?.split("=")[1];
 
-    if (!token) {
-      return NextResponse.json(
-        { success: false },
-        { status: 401 }
-      );
-    }
+    // if (!token) {
+    //   return NextResponse.json(
+    //     { success: false },
+    //     { status: 401 }
+    //   );
+    // }
 
-    const decoded: any = jwt.verify(
-      token,
-      process.env.JWT_SECRET!
-    );
+    // const decoded: any = jwt.verify(
+    //   token,
+    //   process.env.JWT_SECRET!
+    // );
 
-    const user = await User.findById(decoded.userId);
+    // const user = await User.findById(decoded.userId);
 
-    if (!user || user.role !== "finance") {
-      return NextResponse.json(
-        { success: false },
-        { status: 403 }
-      );
-    }
+    // if (!user || user.role !== "finance") {
+    //   return NextResponse.json(
+    //     { success: false },
+    //     { status: 403 }
+    //   );
+    // }
 
     const list = await Registration.find({
       paid: true,

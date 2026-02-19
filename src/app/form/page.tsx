@@ -14,6 +14,8 @@ export default async function Page() {
   } catch {
     redirect("/signup");
   }
+  console.log("TOKEN:", token);
+
 
   return <FormPageClient />;
 }

@@ -1,44 +1,35 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { EVENT_PRICES } from "@/helpers/eventPrices";
-import { buildUpiLink } from "@/helpers/upi";
-import { UPI_ID, PAYMENT_NAME } from "@/helpers/paymentConfig";
-import { useRouter } from "next/navigation";
-
 
 export default function FormPageClient() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [eventTitle, setEventTitle] = useState("");
   const [eventType, setEventType] = useState("");
   const [utr, setUtr] = useState("");
-  const router = useRouter();
-const [success, setSuccess] = useState(false);
-
+  const [success, setSuccess] = useState(false);
+  const [status, setStatus] = useState("");
 
   const [form, setForm] = useState({
     name: "",
-    college:"",
+    college: "",
     email: "",
     mobile: "",
   });
 
-  const [status, setStatus] = useState("");
-
-  // 🔹 read event from url
+  // 🔹 Read event from URL
   useEffect(() => {
     const ev = searchParams.get("event") || "";
-    let type = searchParams.get("type") || "";
-
-    type = type.replace(/^=+/, "");
-
+    const type = searchParams.get("type") || "";
     setEventTitle(ev);
     setEventType(type);
   }, [searchParams]);
 
-  // 🔹 auto fill user profile
+  // 🔹 Auto-fill logged-in user
   useEffect(() => {
     async function loadProfile() {
       try {
@@ -51,7 +42,6 @@ const [success, setSuccess] = useState(false);
         const data = await res.json();
 
         if (data?.user) {
-          console.log("ME API USER =>", data.user); // 👈 add this
           setForm({
             name: data.user.name || "",
             college: data.user.college || "",
@@ -68,19 +58,12 @@ const [success, setSuccess] = useState(false);
   }, []);
 
   const amount = useMemo(() => {
-    return EVENT_PRICES[eventTitle] || 0;
+    return EVENT_PRICES[eventTitle]?.price || 0;
   }, [eventTitle]);
 
-  const upiLink = useMemo(() => {
-    if (!eventTitle || !amount) return "#";
-
-    return buildUpiLink(
-      UPI_ID,
-      PAYMENT_NAME,
-      amount,
-      `Event-${eventTitle}`
-    );
-  }, [eventTitle, amount]);
+  const qrImage = useMemo(() => {
+    return EVENT_PRICES[eventTitle]?.qr || null;
+  }, [eventTitle]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -110,13 +93,11 @@ const [success, setSuccess] = useState(false);
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: form.name,
-          college: form.college,
-          email: form.email,
-          mobile: form.mobile,
+          ...form,
           eventTitle,
           eventType,
           utr,
+          amount,
         }),
       });
 
@@ -129,9 +110,9 @@ const [success, setSuccess] = useState(false);
 
       setSuccess(true);
 
-setTimeout(() => {
-  router.push("/home");
-}, 2000);
+      setTimeout(() => {
+        router.push("/home");
+      }, 2000);
 
       setUtr("");
     } catch (err) {
@@ -141,67 +122,80 @@ setTimeout(() => {
   }
 
   if (success) {
-  return (
-    <main className="min-h-screen flex items-center justify-center text-white">
-      <div className="rounded-xl border border-green-400/30 bg-green-400/10 px-8 py-6 text-center">
-        <h2 className="text-2xl font-bold text-green-300">
-          ✅ Registration Successful
-        </h2>
-        <p className="mt-2 text-sm text-green-200">
-          Redirecting to home page...
-        </p>
-      </div>
-    </main>
-  );
-}
+    return (
+      <main className="min-h-screen flex items-center justify-center text-white">
+        <div className="rounded-xl border border-green-400/30 bg-green-400/10 px-8 py-6 text-center">
+          <h2 className="text-2xl font-bold text-green-300">
+            ✅ Registration Successful
+          </h2>
+          <p className="mt-2 text-sm text-green-200">
+            Redirecting to home page...
+          </p>
+        </div>
+      </main>
+    );
+  }
 
-
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 text-white ">
+    <main className="min-h-screen flex items-center justify-center px-4 text-white">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 space-y-4 mt-30"
+        className="w-full max-w-md rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 space-y-5 mt-20"
       >
-        <h1 className="text-2xl font-bold mb-2">Event Registration</h1>
+        <h1 className="text-2xl font-bold text-cyan-400 text-center">
+          Event Registration
+        </h1>
 
+        {/* Selected Event */}
         <div>
-          <label className="text-sm text-gray-300">Selected Event</label>
+          <label htmlFor="event" className="text-sm text-gray-300">
+            Selected Event
+          </label>
           <input
+            id="event"
             value={eventTitle}
             readOnly
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 text-sm text-gray-300"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 text-gray-300"
           />
         </div>
 
+        {/* Full Name */}
         <div>
-          <label className="text-sm text-gray-300" htmlFor="fullname">Full Name</label>
+          <label htmlFor="name" className="text-sm text-gray-300">
+            Full Name
+          </label>
           <input
-          id="fullname"
+            id="name"
             name="name"
             required
             value={form.name}
             onChange={handleChange}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3"
           />
         </div>
 
+        {/* College */}
         <div>
-          <label className="text-sm text-gray-300" htmlFor="college">College</label>
+          <label htmlFor="college" className="text-sm text-gray-300">
+            College Name
+          </label>
           <input
-          id="college"
+            id="college"
             name="college"
             required
             value={form.college}
             onChange={handleChange}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3"
           />
         </div>
 
-        {/* ✅ email is auto-filled and NOT editable */}
+        {/* Email */}
         <div>
-          <label className="text-sm text-gray-300" htmlFor="email">Email</label>
+          <label htmlFor="email" className="text-sm text-gray-300">
+            Email Address
+          </label>
           <input
-          id="email"
+            id="email"
             name="email"
             type="email"
             value={form.email}
@@ -210,41 +204,43 @@ setTimeout(() => {
           />
         </div>
 
+        {/* Mobile */}
         <div>
-          <label className="text-sm text-gray-300" htmlFor="mobile">Mobile</label>
+          <label htmlFor="mobile" className="text-sm text-gray-300">
+            Mobile Number
+          </label>
           <input
-          id="mobile"
+            id="mobile"
             name="mobile"
             required
             value={form.mobile}
             onChange={handleChange}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3 outline-none"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 p-3"
           />
         </div>
 
-        <img src="/payments/fifty.jpeg" alt="" />
+        {/* QR Section */}
+        {qrImage && (
+          <div className="text-center rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-gray-300 mb-2">
+              Scan & Pay ₹{amount}
+            </p>
 
-        {/* <div className="text-sm text-gray-300">
-          Amount to pay: ₹{amount || "—"}
-        </div> */}
+            <img
+              src={qrImage}
+              alt="QR Code"
+              className="mx-auto w-48 h-48 rounded-lg border border-white/10"
+            />
+          </div>
+        )}
 
-        {/* <a
-          href={upiLink}
-          target="_blank"
-          className={`block text-center rounded-lg border
-            border-green-400/30 bg-green-400/10 py-2 text-green-300
-            hover:bg-green-400/20 ${
-              !amount ? "pointer-events-none opacity-50" : ""
-            }`}
-        >
-          Pay using UPI
-        </a> */}
-
+        {/* UTR */}
         <div>
-          <label className="text-sm text-gray-300">
-            Enter UTR / Transaction ID
+          <label htmlFor="utr" className="text-sm text-gray-300">
+            UTR / Transaction ID
           </label>
           <input
+            id="utr"
             value={utr}
             onChange={(e) => setUtr(e.target.value)}
             required
@@ -253,12 +249,14 @@ setTimeout(() => {
         </div>
 
         {status && (
-          <p className="text-sm text-center text-cyan-300">{status}</p>
+          <p className="text-sm text-center text-red-400">
+            {status}
+          </p>
         )}
 
         <button
           type="submit"
-          className="w-full mt-2 rounded-lg border border-cyan-400/30 bg-cyan-400/10 py-3 font-medium text-cyan-300 hover:bg-cyan-400/20 transition"
+          className="w-full rounded-lg border border-cyan-400/30 bg-cyan-400/10 py-3 font-medium text-cyan-300 hover:bg-cyan-400/20 transition"
         >
           Submit Registration
         </button>

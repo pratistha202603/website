@@ -2,33 +2,13 @@ import Link from "next/link";
 
 const workshops = [
   {
-    title: "AI & Machine Learning Bootcamp",
+    title: "Primavera p6",
     description:
       "This hands-on workshop introduces machine learning concepts, model training and real-world use cases.",
     date: "10 March 2026",
     time: "10:00 AM – 4:00 PM",
     venue: "Seminar Hall – Block A",
     instructor: "Industry Expert",
-    fee: "₹199",
-  },
-  {
-    title: "Web Development with Next.js",
-    description:
-      "Learn to build modern full-stack applications using Next.js and Tailwind.",
-    date: "11 March 2026",
-    time: "10:00 AM – 4:00 PM",
-    venue: "Computer Lab – 2nd Floor",
-    instructor: "Senior Full-Stack Developer",
-    fee: "₹199",
-  },
-  {
-    title: "Data Science with Python",
-    description:
-      "Learn data analysis, visualization and predictive models using Python.",
-    date: "12 March 2026",
-    time: "10:00 AM – 4:00 PM",
-    venue: "Smart Classroom – C Block",
-    instructor: "Data Scientist",
     fee: "₹199",
   },
 ];
@@ -63,7 +43,7 @@ export default async function WorkshopPage({
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-20 text-white">
+    <main className="max-w-3xl mx-auto px-6 py-20 text-white mt-15">
       <h1 className="text-3xl font-bold mb-4">
         {workshop.title}
       </h1>

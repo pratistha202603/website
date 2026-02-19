@@ -45,7 +45,7 @@ const nonTechnicalEvents = [
     coordinator: "Media Team",
   },
   {
-    title: "Reel Contest",
+    title: "Match the Hands",
     description: "Show your talent in singing, comedy or poetry.",
     date: "12 March 2026",
     time: "11:00 AM – 1:00 PM",

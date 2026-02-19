@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const words = ["PRATISTHA", "2K26"];
+const words = ["PRATISTHA", "2K26", "ANNUAL", "TECH", "FEST","Civil", "EVENTS" , "CHALLENGES" ];
 
 export default function Home() {
   return (
