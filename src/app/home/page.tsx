@@ -24,8 +24,8 @@ const workshops = [
     img: "/tevents/brain.jpeg",
   },
   {
-    title: "Project Expo",
-    img: "/tevents/project.jpeg",
+    title: "Stickstopia",
+    img: "/tevents/sixtopia.jpeg",
   },
   {
     title: "Instrument IQ",
@@ -67,8 +67,8 @@ const workshops = [
     img: "/nevents/cube.jpeg",
   },
   {
-    title: "Stickstopia",
-    img: "/tevents/sixtopia.jpeg",
+    title: "Match The Hands",
+    img: "/nevents/match.jpeg",
   },
 ];
 
@@ -125,7 +125,7 @@ const workshops = [
   <SectionTitle variant="cyan">Workshops</SectionTitle>
 
   <div className="flex justify-center w-full">
-    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 text-center">
+    <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-1 text-center">
       {workshops.map((t) => (
         <Link
           key={t.title}

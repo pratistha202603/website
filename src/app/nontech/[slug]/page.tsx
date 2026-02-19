@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const nonTechnicalEvents = [
   {
-    title: "Photo Contest",
+    title: "BGMI & FF",
     description: "Solve clues and reach the final destination.",
     date: "11 March 2026",
     time: "2:00 PM – 4:00 PM",
@@ -13,7 +13,7 @@ const nonTechnicalEvents = [
     coordinator: "Student Council",
   },
   {
-    title: "Treasure Hunt",
+    title: "Photo & Reel Contest",
     description: "Show your creativity through the lens.",
     date: "10 March 2026",
     time: "10:00 AM – 11:30 AM",
@@ -21,7 +21,7 @@ const nonTechnicalEvents = [
     coordinator: "Cultural Club",
   },
   {
-    title: "Rubics Cube",
+    title: "Treasure Hunt",
     description: "Design creative posters on given themes.",
     date: "10 March 2026",
     time: "12:00 PM – 1:30 PM",
@@ -29,7 +29,7 @@ const nonTechnicalEvents = [
     coordinator: "Fine Arts Club",
   },
   {
-    title: "Project Expo",
+    title: "Image Quiz",
     description: "Enjoy a fun-filled quiz with general topics.",
     date: "11 March 2026",
     time: "10:00 AM – 11:00 AM",
@@ -37,7 +37,7 @@ const nonTechnicalEvents = [
     coordinator: "Literary Club",
   },
   {
-    title: "Free-fire Squad",
+    title: "Rubics Cube",
     description: "Create and submit an exciting short reel.",
     date: "11 March 2026",
     time: "1:00 PM – 3:00 PM",

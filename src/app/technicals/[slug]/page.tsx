@@ -14,7 +14,7 @@ const technicalEvents = [
     coordinator: "CSE Department",
   },
   {
-    title: "Brain BUZZ",
+    title: "Brain Battle",
     description: "A quiz competition to challenge your technical knowledge.",
     date: "10 March 2026",
     time: "1:00 PM – 7:00 PM",
@@ -22,7 +22,7 @@ const technicalEvents = [
     coordinator: "Coding Club",
   },
   {
-    title: "Sixtopia",
+    title: "Project Expo",
     description: "Stability Check",
     date: "11 March 2026",
     time: "10:00 AM – 12:00 PM",
