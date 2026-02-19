@@ -2,26 +2,27 @@
 
 import { useEffect, useState } from "react";
 
-const FINANCE_PASSWORD = "finance123"; // 🔥 Change this
+const FINANCE_PASSWORD = "finance123";
 
-type Registration = {
+type Payment = {
   _id: string;
+  type: "event" | "accommodation";
   name: string;
   email: string;
-  paid: boolean;
+  mobile?: string;
+  amount: number;
+  utr: string;
   verified: boolean;
-  utr: string; // ✅ Added
 };
 
 export default function FinancePage() {
-  const [list, setList] = useState<Registration[]>([]);
+  const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // 🔐 Check session storage
   useEffect(() => {
     const saved = sessionStorage.getItem("finance_auth");
     if (saved === "true") {
@@ -35,44 +36,48 @@ export default function FinancePage() {
     if (password === FINANCE_PASSWORD) {
       setAuthenticated(true);
       sessionStorage.setItem("finance_auth", "true");
+      setError("");
     } else {
       setError("Incorrect password");
     }
   }
 
-  async function loadUsers() {
+  async function loadData() {
     setLoading(true);
 
     const res = await fetch("/api/admin/pending-payments", {
       cache: "no-store",
     });
 
-    const data = await res.json();
-    setList(data);
+    const result = await res.json();
+
+    if (result.success) {
+      setPayments(result.data);
+    }
+
     setLoading(false);
   }
 
   useEffect(() => {
     if (authenticated) {
-      loadUsers();
+      loadData();
     }
   }, [authenticated]);
 
-  async function verifyPayment(id: string) {
+  async function verifyPayment(id: string, type: string) {
     const res = await fetch("/api/admin/verify-payment", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id, type }),
     });
 
     if (res.ok) {
-      loadUsers();
+      loadData();
     } else {
-      alert("Failed to verify payment");
+      alert("Verification failed");
     }
   }
 
-  // 🔒 PASSWORD SCREEN
   if (!authenticated) {
     return (
       <main className="min-h-screen flex items-center justify-center text-white">
@@ -119,10 +124,10 @@ export default function FinancePage() {
   }
 
   return (
-    <div className="min-h-screen px-6 py-16 text-white mt-20">
-      <div className="flex justify-between items-center mb-6">
+    <div className="min-h-screen px-6 py-16 text-white mt-20 space-y-6">
+      <div className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold">
-          Payment Verification (Finance)
+          Finance Payment Verification
         </h1>
 
         <button
@@ -136,61 +141,50 @@ export default function FinancePage() {
         </button>
       </div>
 
-      {list.length === 0 && (
+      {payments.length === 0 && (
         <p className="text-gray-400">No pending payments.</p>
       )}
 
       <div className="space-y-4">
-        {list.map((r) => (
+        {payments.map((p) => (
           <div
-            key={r._id}
+            key={p._id}
             className="rounded-xl border border-white/10 bg-white/5 p-4 flex justify-between items-center"
           >
             <div>
-              <p className="font-medium">{r.name}</p>
-              <p className="text-sm text-gray-400">{r.email}</p>
+              <p className="font-medium">
+                {p.name}{" "}
+                <span className="text-xs px-2 py-1 rounded-md bg-cyan-400/20 text-cyan-300 ml-2">
+                  {p.type === "event" ? "Event" : "Accommodation"}
+                </span>
+              </p>
 
-              {/* ✅ UTR DISPLAY */}
+              <p className="text-sm text-gray-400">{p.email}</p>
+
+              {p.mobile && (
+                <p className="text-sm text-gray-400">
+                  Mobile: {p.mobile}
+                </p>
+              )}
+
+              <p className="text-sm">
+                Amount: ₹{p.amount}
+              </p>
+
               <p className="text-sm">
                 UTR:{" "}
                 <span className="text-cyan-300">
-                  {r.utr || "Not Provided"}
-                </span>
-              </p>
-
-              <p className="text-sm">
-                Paid:{" "}
-                <span
-                  className={
-                    r.paid ? "text-green-400" : "text-red-400"
-                  }
-                >
-                  {r.paid ? "Yes" : "No"}
-                </span>
-              </p>
-
-              <p className="text-sm">
-                Verified:{" "}
-                <span
-                  className={
-                    r.verified
-                      ? "text-emerald-400"
-                      : "text-yellow-400"
-                  }
-                >
-                  {r.verified ? "Yes" : "Pending"}
+                  {p.utr}
                 </span>
               </p>
             </div>
 
-            {!r.verified && (
-              <button
-                onClick={() => verifyPayment(r._id)}
-                className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
-              >
-                Mark Verified
-              </button>
-            )}
+            <button
+              onClick={() => verifyPayment(p._id, p.type)}
+              className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
+            >
+              Mark Verified
+            </button>
           </div>
         ))}
       </div>

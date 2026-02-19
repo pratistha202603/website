@@ -26,12 +26,16 @@ export async function GET() {
     );
 
     const user = await User.findById(decoded.userId).select(
-      "name email rollNo mobile"
+      "name gender email college mobile"
     );
 
-    const registrations = await Registration.find({
-      userId: decoded.userId,
-    }).select("eventTitle eventType paid verified utr");
+   const registrations = await Registration.find({
+  userId: decoded.userId,
+})
+  .populate("userId", "name gender college mobile email")
+  .select("eventTitle eventType paid verified utr userId")
+  .sort({ createdAt: -1 });
+
 
     const accommodation = await Accommodation.findOne({
       userId: decoded.userId,

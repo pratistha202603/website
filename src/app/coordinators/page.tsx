@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type Candidate = {
-  name: string;
-  rollNo: string;
-  email: string;
-  mobile: string;
+  userId: {
+    name: string;
+    college: string;
+    email: string;
+    mobile: string;
+  };
   utr: string;
   verified: boolean;
-
 };
 
 type EventData = {
@@ -34,7 +35,6 @@ export default function CoordinatorsPage() {
   useEffect(() => {
     const userId = localStorage.getItem("coordinatorUserId");
 
-    // not logged in
     if (!userId) {
       router.push("/coordinators/login");
       return;
@@ -139,38 +139,30 @@ export default function CoordinatorsPage() {
                     <thead className="bg-white/10">
                       <tr>
                         <th className="p-2 text-left">Name</th>
-                        <th className="p-2 text-left">Roll No</th>
+                        <th className="p-2 text-left">College</th>
                         <th className="p-2 text-left">Email</th>
                         <th className="p-2 text-left">Mobile</th>
-                        {/* <th className="p-2 text-left">UTR</th> */}
                         <th className="p-2 text-left">Finance Status</th>
-
                       </tr>
                     </thead>
                     <tbody>
                       {ev.candidates.map((c, i) => (
                         <tr key={i} className="border-t border-white/10">
-                          <td className="p-2">{c.name}</td>
-                          <td className="p-2">{c.rollNo}</td>
-                          <td className="p-2">{c.email}</td>
-                          <td className="p-2">{c.mobile}</td>
-                          {/* <td className="p-2">{c.utr}</td> */}
-                         <td className="p-2">
-  <span
-    className={`inline-block min-w-[90px] text-center px-3 py-1 rounded-full text-xs font-semibold ${
-      c.verified
-        ? "bg-emerald-500/20 text-emerald-400"
-        : "bg-yellow-500/20 text-yellow-400"
-    }`}
-  >
-    {c.verified ? "Verified" : "Pending"}
-  </span>
-</td>
-
-
-
-
-
+                          <td className="p-2">{c.userId?.name}</td>
+                          <td className="p-2">{c.userId?.college}</td>
+                          <td className="p-2">{c.userId?.email}</td>
+                          <td className="p-2">{c.userId?.mobile}</td>
+                          <td className="p-2">
+                            <span
+                              className={`inline-block min-w-[90px] text-center px-3 py-1 rounded-full text-xs font-semibold ${
+                                c.verified
+                                  ? "bg-emerald-500/20 text-emerald-400"
+                                  : "bg-yellow-500/20 text-yellow-400"
+                              }`}
+                            >
+                              {c.verified ? "Verified" : "Pending"}
+                            </span>
+                          </td>
                         </tr>
                       ))}
                     </tbody>

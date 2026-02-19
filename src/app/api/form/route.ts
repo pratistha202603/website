@@ -4,7 +4,6 @@ import { Registration } from "@/models/Registrations";
 import jwt from "jsonwebtoken";
 import User from "@/models/User";
 
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -15,10 +14,7 @@ export async function POST(req: NextRequest) {
 
     await connectDB();
 
-    // ✅ Read cookie from request
     const token = req.cookies.get("token")?.value;
-
-    console.log("TOKEN IN FORM API =", token);
 
     if (!token) {
       return NextResponse.json(
@@ -33,19 +29,24 @@ export async function POST(req: NextRequest) {
     ) as { userId: string };
 
     const userId = decoded.userId;
-   await User.findByIdAndUpdate(
-  userId,
-  {
-    rollNo: body.rollNo,
-    mobile: body.mobile,
-  },
-  { new: true }
-);
 
-
-    const doc = await Registration.create({
-      ...body,
+    // ✅ Update user profile (Single Source of Truth)
+    await User.findByIdAndUpdate(
       userId,
+      {
+        name: body.name,
+        college: body.college,
+        mobile: body.mobile,
+      },
+      { new: true }
+    );
+
+    // ✅ Create registration WITHOUT duplicated fields
+    const doc = await Registration.create({
+      userId,
+      eventTitle: body.eventTitle,
+      eventType: body.eventType,
+      utr: body.utr,
     });
 
     return NextResponse.json({ success: true, data: doc });

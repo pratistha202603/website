@@ -26,7 +26,6 @@ export async function POST(req: Request) {
     );
 
     const body = await req.json();
-
     const doc = await Accommodation.create({
       ...body,
       userId: decoded.userId, // ✅ FIXED HERE
@@ -67,7 +66,7 @@ export async function GET() {
     );
 
     const user = await User.findById(decoded.userId).select(
-      "name email mobile rollNo"
+      "name email mobile college"
     );
 
     if (!user) {

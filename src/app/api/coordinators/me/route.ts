@@ -28,9 +28,9 @@ export async function GET(req: Request) {
     for (const title of coordinator.events) {
       const candidates = await Registration.find({
         eventTitle: title,
-      }).select(
-        "name rollNo email mobile utr verified -_id"
-      );
+      })
+        .populate("userId", "name college email mobile")
+        .select("userId utr verified -_id");
 
       eventsData.push({
         title,

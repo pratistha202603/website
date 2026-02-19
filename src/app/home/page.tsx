@@ -7,29 +7,71 @@ import styles from "./page.module.css";
 
 export default function FestHomePage() {
 
-  const workshops = [
-    "AI & Machine Learning Bootcamp",
-    "Web Development with Next.js",
-  ];
+const workshops = [
+  {
+    title: "",
+    img: "/tevents/primavera.jpeg",
+  },
+]
 
-  const technical = [
-    "Clash of CAD",
-    "Brain BUZZ",
-    "Sixtopia",
-    "Technohunt",
-    "abhivyakti",
-    "Geometry",
-  ];
+ const technical = [
+  {
+    title: "Clash of CAD",
+    img: "/tevents/cad.jpeg",
+  },
+  {
+    title: "Brain Battle",
+    img: "/tevents/brain.jpeg",
+  },
+  {
+    title: "Project Expo",
+    img: "/tevents/project.jpeg",
+  },
+  {
+    title: "Instrument IQ",
+    img: "/tevents/iq.jpeg",
+  },
+  {
+    title: "Presentation Hub",
+    img: "/tevents/ppt.jpeg",
+  },
+  {
+    title: "Geometry",
+    img: "/tevents/survey.jpeg",
+  },
+  
+];
+
+
 
   // ✅ must match /nontech/[slug] page titles
-  const nonTechnical = [
-    "Photo Contest",
-    "Treasure Hunt",
-    "Rubics Cube",
-    "Project Expo",
-    "Free-fire Squad",
-    "Reel Contest",
-  ];
+   const nonTechnical = [
+  {
+    title: "BGMI & FF",
+    img: "/nevents/bgmi.jpeg",
+  },
+  {
+    title: "Photo Reel Contest",
+    img: "/nevents/reel.jpeg",
+  },
+  {
+    title: "Treasure Hunt",
+    img: "/nevents/treasure.jpeg",
+  },
+  {
+    title: "Image Quiz",
+    img: "/nevents/image.jpeg",
+  },
+  {
+    title: "Rubics Cube",
+    img: "/nevents/cube.jpeg",
+  },
+  {
+    title: "Stickstopia",
+    img: "/tevents/sixtopia.jpeg",
+  },
+];
+
 
   const sponsors = Array.from({ length: 6 }, (_, i) => `Sponsor ${i + 1}`);
   const coordinators = Array.from({ length: 10 }, (_, i) => `Coordinator ${i + 1}`);
@@ -79,65 +121,70 @@ export default function FestHomePage() {
 
 
       {/* Workshops */}
-      <section  className=" text-center  " id="workshops">
-        <SectionTitle variant="cyan">Workshops</SectionTitle>
-<div className="flex justify-center w-full ">
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 text-center">
-          {workshops.map((t, i) => (
-            <Link
-              key={t}
-              href={`/workshops/${getSlug(t)}`}
-              className="block"
-            >
-              <GlowCard
-                title={t}
-                img={`https://picsum.photos/400/300?random=${i + 1}`}
-              />
-            </Link>
-          ))}
-        </div>
-        </div>
-      </section>
+     <section className="text-center" id="workshops">
+  <SectionTitle variant="cyan">Workshops</SectionTitle>
+
+  <div className="flex justify-center w-full">
+    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 text-center">
+      {workshops.map((t) => (
+        <Link
+          key={t.title}
+          href={`/workshops/${getSlug(t.title)}`}
+          className="block"
+        >
+          <GlowCard
+            title={t.title}
+            img={t.img}
+          />
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Technical Events */}
-      <section id="technical-events" className="pt-25 text-center">
-        <SectionTitle variant="blue">Technical Events</SectionTitle>
+     <section id="technical-events" className="pt-25 text-center">
+  <SectionTitle variant="blue">Technical Events</SectionTitle>
 
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
-          {technical.map((t, i) => (
-            <Link
-              key={t}
-              href={`/technicals/${getSlug(t)}`}
-              className="block"
-            >
-              <MiniCard
-                title={t}
-                img={`https://picsum.photos/400/300?random=${i + 10}`}
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
+    {technical.map((t, i) => (
+      <Link
+        key={t.title}
+        href={`/technicals/${getSlug(t.title)}`}
+        className="block"
+      >
+        <MiniCard
+          title={t.title}
+          img={t.img}
+        />
+      </Link>
+    ))}
+  </div>
+</section>
+
 
       {/* Non-Technical Events */}
-      <section id="non-technical-events " className="sm:ml-2">
-        <SectionTitle variant="pink">Non-Technical Events</SectionTitle>
+      <section id="non-technical-events" className="pt-25 text-center">
+   <SectionTitle variant="pink">Non-Technical Events</SectionTitle>
 
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
-          {nonTechnical.map((t, i) => (
-            <Link
-              key={t}
-              href={`/nontech/${getSlug(t)}`}
-              className="block"
-            >
-              <MiniCard
-                title={t}
-                img={`https://picsum.photos/400/300?random=${i + 20}`}
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
+
+  <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
+    {nonTechnical.map((t, i) => (
+      <Link
+        key={t.title}
+        href={`/non-technicals/${getSlug(t.title)}`}
+        className="block"
+      >
+        <MiniCard
+          title={t.title}
+          img={t.img}
+        />
+      </Link>
+    ))}
+  </div>
+</section>
+
       {/* Accommodation */}
 <section id="accommodation" className="pt-25 text-center mt-0">
   <SectionTitle variant="green">Accommodation</SectionTitle>
@@ -157,7 +204,8 @@ export default function FestHomePage() {
           Location: Jntugv college, Dwarapudi, Vizianagaram, Andhra Pradesh 535003. Limited slots available!
               </p>
       <p className="text-sm text-gray-300 mb-2">
-            contact us :-------------------------------------- to confirm your spot. Don't miss out -- see you soon
+            contact us : 7569864639
+             to confirm your spot. Don't miss out -- see you soon
               </p>
       <p className="text-xs text-gray-400">
         ✔ Shared rooms • ✔ Basic beds • ✔ Drinking water

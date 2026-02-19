@@ -10,6 +10,12 @@ const UserSchema = new Schema(
       unique: true,
     },
 
+    gender: {
+  type: String,
+  enum: ["male", "female"],
+  required: true,
+},
+
     password: {
       type: String,
       required: true,

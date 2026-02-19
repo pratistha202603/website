@@ -2,17 +2,12 @@ import mongoose, { Schema, models, model } from "mongoose";
 
 const RegistrationSchema = new Schema(
   {
-    // 🔹 link with your User collection
+    // 🔹 Link with User collection
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-
-    name: { type: String, required: true },
-    college: { type: String, required: true },
-    email: { type: String, required: true },
-    mobile: { type: String, required: true },
 
     utr: { type: String, required: true },
 
@@ -30,14 +25,11 @@ const RegistrationSchema = new Schema(
   { timestamps: true }
 );
 
-/* ✅ THIS is the real duplicate stopper
-   One user → one registration per event
-*/
+/* ✅ One user → one registration per event */
 RegistrationSchema.index(
   { userId: 1, eventTitle: 1, eventType: 1 },
   { unique: true }
 );
-
 
 export const Registration =
   models.Registration || model("Registration", RegistrationSchema);

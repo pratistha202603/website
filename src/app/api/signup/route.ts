@@ -6,9 +6,11 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, college, mobile, gender } =
+      await req.json();
 
-    if (!name || !email || !password) {
+    // ✅ Validation
+    if (!name || !email || !password || !college || !mobile || !gender) {
       return NextResponse.json(
         { success: false, message: "All fields are required" },
         { status: 400 }
@@ -32,16 +34,18 @@ export async function POST(req: Request) {
       name,
       email,
       password: hashedPassword,
+      college,
+      mobile,
+      gender, // ✅ Added
     });
 
-    // ✅ AUTO LOGIN PART
+    // ✅ Auto login
     const token = jwt.sign(
       { userId: user._id },
       process.env.JWT_SECRET!,
       { expiresIn: "7d" }
     );
 
-    // ✅ Use response cookies (NOT cookies() )
     const res = NextResponse.json({
       success: true,
       userId: user._id,

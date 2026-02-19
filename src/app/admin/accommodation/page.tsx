@@ -6,16 +6,17 @@ const ADMIN_PASSWORD = "admin123"; // 🔥 Change this
 
 type AccommodationType = {
   _id: string;
-  name: string;
-  rollNo: string;
-  email: string;
-  mobile: string;
   college: string;
   gender: string;
   days: number;
   utr: string;
   amount: number;
   createdAt: string;
+  userId?: {
+    name: string;
+    email: string;
+    mobile: string;
+  };
 };
 
 export default function AccommodationAdminPage() {
@@ -42,12 +43,13 @@ export default function AccommodationAdminPage() {
     if (password === ADMIN_PASSWORD) {
       setAuthenticated(true);
       sessionStorage.setItem("accommodation_admin_auth", "true");
+      setError("");
     } else {
       setError("Incorrect password");
     }
   }
 
-  // 🔥 Fetch data only after authentication
+  // 🔥 Fetch data after authentication
   useEffect(() => {
     if (!authenticated) return;
 
@@ -72,7 +74,7 @@ export default function AccommodationAdminPage() {
     loadData();
   }, [authenticated]);
 
-  // 🔒 PASSWORD SCREEN
+  // 🔒 LOGIN SCREEN
   if (!authenticated) {
     return (
       <main className="min-h-screen flex items-center justify-center text-white">
@@ -134,7 +136,7 @@ export default function AccommodationAdminPage() {
         Accommodation Registrations
       </h1>
 
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-6 flex items-center gap-4 flex-wrap">
         <label className="text-gray-300">Filter by Gender:</label>
 
         <select
@@ -165,12 +167,11 @@ export default function AccommodationAdminPage() {
       {filteredData.length === 0 ? (
         <p className="text-gray-400">No registrations found.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm border border-white/10">
+        <div className="overflow-x-auto rounded-xl border border-white/10">
+          <table className="min-w-full text-sm">
             <thead className="bg-white/10">
               <tr>
                 <th className="p-3 text-left">Name</th>
-                <th className="p-3 text-left">Roll No</th>
                 <th className="p-3 text-left">Email</th>
                 <th className="p-3 text-left">Mobile</th>
                 <th className="p-3 text-left">College</th>
@@ -184,17 +185,26 @@ export default function AccommodationAdminPage() {
             <tbody>
               {filteredData.map((d) => (
                 <tr key={d._id} className="border-t border-white/10">
-                  <td className="p-3">{d.name}</td>
-                  <td className="p-3">{d.rollNo}</td>
-                  <td className="p-3">{d.email}</td>
-                  <td className="p-3">{d.mobile}</td>
+                  <td className="p-3">
+                    {d.userId?.name || "N/A"}
+                  </td>
+                  <td className="p-3">
+                    {d.userId?.email || "N/A"}
+                  </td>
+                  <td className="p-3">
+                    {d.userId?.mobile || "N/A"}
+                  </td>
                   <td className="p-3">{d.college}</td>
-                  <td className="p-3 capitalize">{d.gender}</td>
+                  <td className="p-3 capitalize">
+                    {d.gender}
+                  </td>
                   <td className="p-3">{d.days}</td>
                   <td className="p-3 text-cyan-300 font-semibold">
                     ₹{d.amount ?? 0}
                   </td>
-                  <td className="p-3">{d.utr || "Not Provided"}</td>
+                  <td className="p-3">
+                    {d.utr || "Not Provided"}
+                  </td>
                   <td className="p-3">
                     {new Date(d.createdAt).toLocaleDateString()}
                   </td>

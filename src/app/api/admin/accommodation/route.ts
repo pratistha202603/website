@@ -6,7 +6,9 @@ export async function GET() {
   try {
     await connectDB();
 
-    const data = await Accommodation.find().sort({ createdAt: -1 });
+    const data = await Accommodation.find()
+      .populate("userId", "name email mobile") // ✅ THIS LINE ADDED
+      .sort({ createdAt: -1 });
 
     return NextResponse.json({ success: true, data });
 

@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     await connectDB();
 
     const user = await User.findById(decoded.userId).select(
-      "name rollNo email mobile"
+      "name college email mobile"
     );
 
     if (!user) {

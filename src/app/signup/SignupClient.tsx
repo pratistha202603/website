@@ -4,32 +4,50 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "@/app/components/LoadingCircle";
 
+type SignupForm = {
+  name: string;
+  college: string;
+  email: string;
+  mobile: string;
+  password: string;
+  gender: string;
+};
+
 export default function SignupClient() {
   const router = useRouter();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<SignupForm>({
     name: "",
-    college:"",
+    college: "",
     email: "",
     mobile: "",
     password: "",
+    gender: "",
   });
 
-  const [msg, setMsg] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [msg, setMsg] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  // ✅ Handles input + select
+  function handleChange(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) {
+    const { name, value } = e.currentTarget;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setMsg("");
     setLoading(true);
+    setSuccess(false);
 
     try {
       const res = await fetch("/api/signup", {
@@ -56,6 +74,7 @@ export default function SignupClient() {
         router.push("/home");
         router.refresh();
       }, 1200);
+
     } catch (err) {
       console.error(err);
       setMsg("Signup failed");
@@ -86,11 +105,30 @@ export default function SignupClient() {
             value={form.name}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
-            placeholder="full name "
+            placeholder="Full Name"
           />
         </div>
 
-        {/* Roll Number */}
+        {/* Gender */}
+        <div className="space-y-1">
+          <label htmlFor="gender" className="text-sm text-white/80">
+            Select Gender
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            required
+            value={form.gender}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        {/* College */}
         <div className="space-y-1">
           <label htmlFor="college" className="text-sm text-white/80">
             College Name
@@ -119,7 +157,7 @@ export default function SignupClient() {
             value={form.email}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
-            placeholder="email address"
+            placeholder="Email Address"
           />
         </div>
 
@@ -132,10 +170,11 @@ export default function SignupClient() {
             id="mobile"
             name="mobile"
             required
+            pattern="[0-9]{10}"
             value={form.mobile}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
-            placeholder="mobile number"
+            placeholder="10-digit mobile number"
           />
         </div>
 
@@ -149,17 +188,18 @@ export default function SignupClient() {
             name="password"
             type="password"
             required
+            minLength={6}
             value={form.password}
             onChange={handleChange}
             className="w-full rounded-lg border border-white/10 bg-white/10 p-2 outline-none focus:border-cyan-400/50"
-            placeholder="password"
+            placeholder="Minimum 6 characters"
           />
         </div>
 
         {msg && (
           <p
             className={`text-sm text-center ${
-              success ? "text-green-400" : "text-red-300"
+              success ? "text-green-400" : "text-red-400"
             }`}
           >
             {msg}
@@ -176,16 +216,16 @@ export default function SignupClient() {
         >
           {loading ? <LoadingCircle /> : "Create Account"}
         </button>
-        <div className="text-center text-sm text-gray-400">
-  Already have an account?{" "}
-  <span
-    onClick={() => router.push("/login")}
-    className="text-cyan-300 hover:underline cursor-pointer"
-  >
-    Login
-  </span>
-</div>
 
+        <div className="text-center text-sm text-gray-400">
+          Already have an account?{" "}
+          <span
+            onClick={() => router.push("/login")}
+            className="text-cyan-300 hover:underline cursor-pointer"
+          >
+            Login
+          </span>
+        </div>
       </form>
     </main>
   );

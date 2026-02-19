@@ -1,11 +1,5 @@
 import mongoose, { Schema, models, model } from "mongoose";
 
-
-if (mongoose.models.Accommodation) {
-  delete mongoose.models.Accommodation;
-}
-
-
 const AccommodationSchema = new Schema(
   {
     userId: {
@@ -14,10 +8,11 @@ const AccommodationSchema = new Schema(
       required: true,
     },
 
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    mobile: { type: String, required: true },
-    college: { type: String, required: true },
+    college: {                 // ✅ Added
+      type: String,
+      required: true,
+      trim: true,
+    },
 
     gender: {
       type: String,
@@ -25,11 +20,41 @@ const AccommodationSchema = new Schema(
       required: true,
     },
 
-    days: { type: Number, required: true },
-    amount: { type: Number, required: true },
-    utr: { type: String, required: true },
+    days: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+
+    amount: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+
+    utr: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    paid: {
+      type: Boolean,
+      default: true,
+    },
+
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
+);
+
+// Prevent duplicate accommodation per user
+AccommodationSchema.index(
+  { userId: 1 },
+  { unique: true }
 );
 
 export const Accommodation =

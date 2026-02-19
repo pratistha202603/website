@@ -222,11 +222,13 @@ setTimeout(() => {
           />
         </div>
 
-        <div className="text-sm text-gray-300">
-          Amount to pay: ₹{amount || "—"}
-        </div>
+        <img src="/payments/fifty.jpeg" alt="" />
 
-        <a
+        {/* <div className="text-sm text-gray-300">
+          Amount to pay: ₹{amount || "—"}
+        </div> */}
+
+        {/* <a
           href={upiLink}
           target="_blank"
           className={`block text-center rounded-lg border
@@ -236,7 +238,7 @@ setTimeout(() => {
             }`}
         >
           Pay using UPI
-        </a>
+        </a> */}
 
         <div>
           <label className="text-sm text-gray-300">
