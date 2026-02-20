@@ -94,12 +94,25 @@ const workshops = [
         <p  className="mt-5 text-gray-300 max-w-xl mx-auto">
           Annual Technical & Cultural Fest – Innovation, Creativity and Technology under one grand celebration.
         </p>
-        <div className="text-3xl text-orange-300 font-bold mt-10 mb-20 sm:mb-10  "> March 8th & 9th</div>
+        <div className="text-3xl text-orange-300 font-bold mt-10 mb-20 sm:mb-10  "> March 10th & 11th</div>
       </section>
       </div>
       {/* About College */}
       <section id="about-college" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg">
         <SectionTitle variant="green">About the College</SectionTitle>
+<div className="flex justify-center mt-2">
+        <GlassBox>
+          JNTU College of Engineering, Vizianagaram established in the year 2007 as a constituent of JNTU Kakinada.
+           Jawaharlal Nehru Technological University Gurajada Vizianagaram come into existence as separate University. 
+           The university is spread across six districts.
+            There are 2 constituent colleges and 37 affiliated colleges under its jurisdiction and cateri
+             -ng education indifferent Engineering, Pharmacy and Management departments.
+          </GlassBox>
+        </div>
+      </section>
+      {/* About College */}
+      <section id="about-Civil" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg mb-5">
+        <SectionTitle variant="orange">Civil Engineering Department</SectionTitle>
 <div className="flex justify-center">
         <GlassBox>
           The Civil Engineering Department at Jawaharlal Nehru Technological University - Gurajada Vizianagaram is a hub of academic excellence, innovation, and practical learning. Commited to the 
@@ -198,7 +211,7 @@ const workshops = [
           and a vibrant campus atmosphere 
               </p>
       <p className="text-base text-gray-300 mb-2 text-center font-bold">
-          Dates: March 9th & 10 th
+          Dates: March 10th & 1th
               </p>
       <p className="text-sm text-gray-300 mb-2">
           Location: Jntugv college, Dwarapudi, Vizianagaram, Andhra Pradesh 535003. Limited slots available!

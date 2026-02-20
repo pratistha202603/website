@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
       eventTitle: body.eventTitle,
       eventType: body.eventType,
       utr: body.utr,
+      amount: body.amount,
     });
 
     return NextResponse.json({ success: true, data: doc });
