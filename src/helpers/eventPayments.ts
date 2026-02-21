@@ -10,7 +10,7 @@ export type EventPaymentType = {
 };
 
 export const EVENT_PAYMENTS: Record<string, EventPaymentType> = {
-  clashofcad: {
+  autocad: {
     options: {
       single: {
         amount: 100,

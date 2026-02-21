@@ -8,7 +8,7 @@ export const ALL_EVENTS = [
   { label: "Primavera P6", slug: "primavera-p6" },
 
   // Technical Events
-  { label: "Clash of CAD", slug: "clash-of-cad" },
+  { label: "Auto CAD", slug: "autocad" },
   { label: "Brain Battle", slug: "brain-battle" },
   { label: "Stickstopia", slug: "stickstopia" },
   { label: "Instrument IQ", slug: "instrument-iq" },

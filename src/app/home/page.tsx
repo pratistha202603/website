@@ -16,7 +16,7 @@ const workshops = [
 
  const technical = [
   {
-    title: "Clash of CAD",
+    title: "Auto CAD",
     img: "/tevents/cad.jpeg",
   },
   {
@@ -74,7 +74,16 @@ const workshops = [
 
 
   const sponsors = Array.from({ length: 6 }, (_, i) => `Sponsor ${i + 1}`);
-  const coordinators = Array.from({ length: 10 }, (_, i) => `Coordinator ${i + 1}`);
+    const coordinators = [
+  { name: "M Madhan Kumar", coor:"Fest Coordinator", img: "/coordinators/madhan.jpeg", contact: "tel:8886552434" },
+  { name: "U Charitha Ratnam", img: "/coordinators/charitha.jpeg" , coor:"Fest Coordinator" },
+  { name: "B Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:7569864639" },
+  { name: "M Hema Tejaswini", img: "/coordinators/hema.jpeg", coor:"Student Coordinator ", },
+  { name: "R Venkata Sri Teja", img: "/coordinators/teja.jpeg", coor:"Accommodation Coordinator ", contact : "tel:7569864639" },
+  { name: "V Dhana Lakshmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
+  { name: "CH Sidhardha", img: "/coordinators/siddu.jpeg", coor:"Tech Events Coordinator ",  contact: "tel:9014114261" },
+  { name: "CH Sidhardha", img: "/coordinators/image.jpeg", coor:"Tech Events Coordinator ",   },
+];
 
   return (
     <main className="relative py-3 sm:py-5 space-y-5 sm:px-50">
@@ -238,7 +247,7 @@ const workshops = [
     
           <Link
   href="/accommodation"
-  className="inline-block mt-4 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-5 py-2 text-cyan-300 hover:bg-cyan-400/20"
+  className="inline-block mt-4 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-5 py-2 text-cyan-300 hover:bg-cyan-400/20 text-center"
 >
   Register for accommodation
 </Link>
@@ -248,7 +257,7 @@ const workshops = [
 
 
       {/* Sponsors */}
-      <section id="sponsors">
+      <section id="sponsors" className="text-center ">
         <SectionTitle variant="orange">Sponsors</SectionTitle>
 
         <div className="relative overflow-hidden">
@@ -278,23 +287,32 @@ const workshops = [
      
 
       {/* Coordinators */}
-      <section id="coordinators">
-        <SectionTitle variant="cyan">Coordinators</SectionTitle>
+<section id="coordinators" className="text-center">
+  {/* Coordinators */}
+<section id="coordinators" className="text-center">
+  <SectionTitle variant="cyan">Coordinators</SectionTitle>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10">
-          {coordinators.map((c, i) => (
-            <CoordinatorCard
-              key={c}
-              name={"indrasai"}
-              img={`https://picsum.photos/300/300?random=${i + 60}`}
-            />
-          ))}
-        </div>
-      </section>
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10">
+    {coordinators.map((c, i) => (
+      <a
+        key={i}
+        href={c.contact}
+        className="block"
+      >
+        <CoordinatorCard
+          name={c.name}
+          img={c.img}
+          coor = {c.coor}
 
+        />
+      </a>
+    ))}
+  </div>
+</section>
+</section>
       {/* ---------------- Footer Section ---------------- */}
 
-<section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8">
+<section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8 ">
 
   {/* Social Media Buttons */}
   <div>
@@ -304,7 +322,7 @@ const workshops = [
 
     <div className="flex justify-center gap-6 flex-wrap">
       <a
-        href="https://youtube.com"
+        href="http://www.youtube.com/@pratistha2k26"
         target="_blank"
         className="rounded-lg border border-red-500/30 bg-red-500/10 px-6 py-2 text-red-400 hover:bg-red-500/20 transition"
       >
@@ -312,7 +330,7 @@ const workshops = [
       </a>
 
       <a
-        href="https://instagram.com"
+        href="https://www.instagram.com/pratistha_2k26?utm_source=qr&igsh=MTFpN2RjZGd6bmJrdQ=="
         target="_blank"
         className="rounded-lg border border-pink-500/30 bg-pink-500/10 px-6 py-2 text-pink-400 hover:bg-pink-500/20 transition"
       >
@@ -438,12 +456,12 @@ function SponsorCard({ title, img }: { title: string; img: string }) {
   );
 }
 
-function CoordinatorCard({ name, img }: { name: string; img: string }) {
+function CoordinatorCard({ name, img , coor}: { name: string; img: string , coor: string}) {
   return (
     <div className="flex flex-col items-center rounded-lg border border-white/10 bg-white/5 backdrop-blur-md p-2">
       <img src={img} className="h-16 w-16 rounded-full object-cover mb-2" alt={name} />
-      <p className="text-xs font-medium">{name}</p>
-      <p className="text-[10px] text-gray-400">Coordinator</p>
+      <p className="text-sm font-medium">{name}</p>
+      <p className="text-md text-blue-300 font-bold">{coor}</p>
     </div>
   );
 }

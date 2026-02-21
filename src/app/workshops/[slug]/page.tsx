@@ -4,12 +4,12 @@ const workshops = [
   {
     title: "Primavera p6",
     description:
-      "This hands-on workshop introduces machine learning concepts, model training and real-world use cases.",
-    date: "10 March 2026",
+      "Learn how to use Primavera p6 for project management and scheduling. This workshop will cover the basics of Primavera p6, including how to create a project, add tasks, and manage resources.",
+    date: "10 & 11 March 2026",
     time: "10:00 AM – 4:00 PM",
     venue: "Seminar Hall – Block A",
     instructor: "Industry Expert",
-    fee: "₹199",
+    fee: "₹500",
   },
 ];
 

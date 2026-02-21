@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { EVENT_PRICES } from "@/helpers/eventPrices";
+import { EVENT_PAYMENTS } from "@/helpers/eventPayments";
 
 
 type Payment = {
@@ -220,9 +221,8 @@ export default function FinancePage() {
               )}
 
               <p className="text-sm">
-               Amount: ₹{EVENT_PRICES[p.eventTitle]?.price || 0}
-
-              </p>
+  Amount: ₹{EVENT_PRICES[p.eventTitle]?.price || 0}
+</p>
 
               <p className="text-sm">
                 UTR:{" "}

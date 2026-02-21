@@ -1,4 +1,5 @@
 import mongoose, { Schema, models, model } from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const RegistrationSchema = new Schema(
   {
@@ -26,6 +27,7 @@ const RegistrationSchema = new Schema(
     utr: {
       type: String,
       required: true,
+      unique: true,
     },
 
     paid: {

@@ -52,22 +52,24 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: doc });
 
-  } catch (err: any) {
-    console.error("FORM ERROR =>", err);
+  }catch (error: any) {
 
-    if (err.code === 11000) {
-      return NextResponse.json(
-        { success: false, message: "You already registered for this event" },
-        { status: 409 }
-      );
-    }
-
+  // 🔴 Duplicate UTR Error
+  if (error.code === 11000) {
     return NextResponse.json(
       {
         success: false,
-        message: err.message || "Failed to register",
+        message: "This UTR has already been used. Please enter a valid transaction ID."
       },
-      { status: 500 }
+      { status: 400 }
     );
   }
+
+  console.error(error);
+
+  return NextResponse.json(
+    { success: false, message: "Something went wrong" },
+    { status: 500 }
+  );
+}
 }
