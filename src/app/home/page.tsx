@@ -77,7 +77,7 @@ const workshops = [
     const coordinators = [
   { name: "M Madhan Kumar", coor:"Fest Coordinator", img: "/coordinators/madhan.jpeg", contact: "tel:8886552434" },
   { name: "U Charitha Ratnam", img: "/coordinators/charitha.jpeg" , coor:"Fest Coordinator" },
-  { name: "B Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:7569864639" },
+  { name: "Buddala Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:7569864639" },
   { name: "M Hema Tejaswini", img: "/coordinators/hema.jpeg", coor:"Student Coordinator ", },
   { name: "R Venkata Sri Teja", img: "/coordinators/teja.jpeg", coor:"Accommodation Coordinator ", contact : "tel:7569864639" },
   { name: "V Dhana Lakshmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
@@ -107,7 +107,7 @@ const workshops = [
       </section>
       </div>
       {/* About College */}
-      <section id="about-college" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg">
+      <section id="about-college" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg {styles.block}">
         <SectionTitle variant="green">About the College</SectionTitle>
 <div className="flex justify-center mt-2">
         <GlassBox>
@@ -120,7 +120,7 @@ const workshops = [
         </div>
       </section>
       {/* About College */}
-      <section id="about-Civil" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg mb-5">
+      <section id="about-Civil" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg mb-5 {styles.block}">
         <SectionTitle variant="orange">Civil Engineering Department</SectionTitle>
 <div className="flex justify-center">
         <GlassBox>
@@ -131,7 +131,7 @@ const workshops = [
         </div>
       </section>
 
-       <section id="about-event" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg ">
+       <section id="about-event" className="p-0 sm:pt-25 text-center wrap-break-word text-xs sm:text-lg {styles.block}">
         <SectionTitle variant="violet">About the Event</SectionTitle>
 <div className="flex justify-center">
         <GlassBox>
@@ -143,7 +143,7 @@ const workshops = [
 
 
       {/* Workshops */}
-     <section className="text-center" id="workshops">
+     <section className="text-center {styles.block}" id="workshops">
   <SectionTitle variant="cyan">Workshops</SectionTitle>
 
   <div className="flex justify-center w-full">
@@ -166,7 +166,7 @@ const workshops = [
 
 
       {/* Technical Events */}
-     <section id="technical-events" className="pt-25 text-center">
+     <section id="technical-events" className="pt-25 text-center {styles.block}">
   <SectionTitle variant="blue">Technical Events</SectionTitle>
 
   <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
@@ -187,11 +187,11 @@ const workshops = [
 
 
       {/* Non-Technical Events */}
-      <section id="non-technical-events" className="pt-25 text-center">
+      <section id="non-technical-events" className="pt-25 text-center {styles.block}">
    <SectionTitle variant="pink">Non-Technical Events</SectionTitle>
 
 
-  <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
+  <div className="grid grid-cols-2 gap-4 lg:grid-cols-6 {styles.block}">
     {nonTechnical.map((t, i) => (
       <Link
         key={t.title}
@@ -208,7 +208,7 @@ const workshops = [
 </section>
 
       {/* Accommodation */}
-<section id="accommodation" className="pt-25 text-center mt-0">
+<section id="accommodation" className="pt-25 text-center mt-0 {styles.block}">
   <SectionTitle variant="green">Accommodation</SectionTitle>
 
   <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-1 text-justify text-2xl sm:m-10 mt-10 ">
@@ -257,7 +257,7 @@ const workshops = [
 
 
       {/* Sponsors */}
-      <section id="sponsors" className="text-center ">
+      <section id="sponsors" className="text-center {styles.block}">
         <SectionTitle variant="orange">Sponsors</SectionTitle>
 
         <div className="relative overflow-hidden">
@@ -287,12 +287,12 @@ const workshops = [
      
 
       {/* Coordinators */}
-<section id="coordinators" className="text-center">
+<section id="coordinators" className="text-center {styles.block}">
   {/* Coordinators */}
-<section id="coordinators" className="text-center">
+<section id="coordinators" className="text-center {styles.block}">
   <SectionTitle variant="cyan">Coordinators</SectionTitle>
 
-  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10">
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols- md:grid-cols-5 lg:grid-cols-8">
     {coordinators.map((c, i) => (
       <a
         key={i}
@@ -312,7 +312,7 @@ const workshops = [
 </section>
       {/* ---------------- Footer Section ---------------- */}
 
-<section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8 ">
+<section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8 {styles.block}">
 
   {/* Social Media Buttons */}
   <div>
@@ -338,7 +338,7 @@ const workshops = [
       </a>
 
       <a
-        href="mailto:pratistha@jntugv.edu.in"
+        href="mailto:pratistha2k26@gmail.com"
         className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-6 py-2 text-amber-300 hover:bg-amber-400/20 transition"
       >
         Gmail

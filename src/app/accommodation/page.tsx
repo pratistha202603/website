@@ -23,7 +23,18 @@ export default function AccommodationPage() {
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(5);
 
-  const totalAmount = form.days * PRICE_PER_DAY;
+  // const totalAmount = form.days * PRICE_PER_DAY;
+  // const totalAmount = (if(form.days ==1){300} else if(form.days == 2) {500} else if(form.days == 3) {350} else {0};
+  const PRICE_MAP: Record<number, number> = {
+  1: 300,
+  2: 500,
+  3: 350,
+};
+
+const totalAmount = PRICE_MAP[form.days] ?? 0;
+
+  // 🔥 Dynamic QR based on days
+const qrImagePath = `/payments/accommodation-${form.days}.jpeg`;
 
   // ✅ AUTO FILL + LOGIN CHECK
   useEffect(() => {
@@ -184,19 +195,33 @@ export default function AccommodationPage() {
           >
             <option value={1}>1 Day</option>
             <option value={2}>2 Days</option>
-            <option value={3}>3 Days</option>
+            <option value={3}>3 Days (Make Sure You need to Register for workshop)</option>
           </select>
         </div>
 
         {/* Amount */}
         <div className="rounded-lg bg-cyan-400/10 border border-cyan-400/20 p-3 text-center">
           <p className="text-sm text-gray-300">
-            Price per day: ₹{PRICE_PER_DAY}
+            {/* Price per day: ₹{PRICE_PER_DAY} */}
           </p>
           <p className="text-lg font-semibold text-cyan-300 mt-1">
             Total Amount: ₹{totalAmount}
           </p>
         </div>
+        {/* QR Code */}
+<div className="text-center space-y-2">
+  <p className="text-sm text-gray-300">
+    Scan & Pay ₹{totalAmount}
+  </p>
+
+  <div className="flex justify-center">
+    <img
+      src={qrImagePath}
+      alt="Accommodation QR Code"
+      className="w-48 h-48 rounded-lg border border-white/10 bg-white/5 p-2"
+    />
+  </div>
+</div>
 
         {/* UTR */}
         <Input

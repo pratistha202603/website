@@ -7,10 +7,22 @@ type Point = { x: number; y: number };
 export default function CursorThread() {
   const [points, setPoints] = useState<Point[]>([]);
   const [active, setActive] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  const maxPoints = 4; // short thread
+  const maxPoints = 5;
+
+  // ✅ Detect desktop (no touch devices)
+  useEffect(() => {
+    const hasTouch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+
+    setIsDesktop(!hasTouch);
+  }, []);
 
   useEffect(() => {
+    if (!isDesktop) return;
+
     let timeout: any;
 
     const move = (e: MouseEvent) => {
@@ -26,11 +38,15 @@ export default function CursorThread() {
     };
 
     window.addEventListener("mousemove", move);
+
     return () => {
       window.removeEventListener("mousemove", move);
       clearTimeout(timeout);
     };
-  }, []);
+  }, [isDesktop]);
+
+  // ❌ Don't render anything on mobile
+  if (!isDesktop) return null;
 
   const path =
     points.length > 1
@@ -39,13 +55,13 @@ export default function CursorThread() {
 
   return (
     <>
-      {/* subtle background reaction */}
+      {/* subtle glow background */}
       <div
-        className="pointer-events-none fixed inset-0 z-[1] transition-colors duration-200"
+        className="pointer-events-none fixed inset-0 z-[1] transition-opacity duration-200"
         style={{
-          background: active
-            ? "radial-gradient(600px at var(--x,50%) var(--y,50%), rgba(99,102,241,0.08), transparent 70%)"
-            : "transparent",
+          opacity: active ? 1 : 0,
+          background:
+            "radial-gradient(500px at center, rgba(99,102,241,0.06), transparent 70%)",
         }}
       />
 
@@ -70,9 +86,9 @@ export default function CursorThread() {
           </linearGradient>
 
           <filter id="threadGlow">
-            <feGaussianBlur stdDeviation="2.2" result="coloredBlur" />
+            <feGaussianBlur stdDeviation="2" result="blur" />
             <feMerge>
-              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
@@ -82,7 +98,7 @@ export default function CursorThread() {
           d={path}
           fill="none"
           stroke="url(#threadGrad)"
-          strokeWidth="1.6"
+          strokeWidth="1.4"
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#threadGlow)"

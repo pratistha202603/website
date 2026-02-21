@@ -1,47 +1,57 @@
 export const EVENT_PRICES: Record<
   string,
-  { price: number; qr: string }
+  Record<string, number>
 > = {
-  // 🔹 Workshops
-  "primavera-p6": {
-    price: 199,
-    qr: "/payments/primavera-p6.jpeg",
+  brainbattle: {
+    team4: 200,
+    team3: 150, // since your DB stores team3
   },
 
-  "ai-machine-learning-bootcamp": {
-    price: 199,
-    qr: "/payments/ai-machine-learning-bootcamp.jpeg",
+  autocad: {
+    team: 300,
+    single:100,
   },
 
-  "web-development-with-next-js": {
-    price: 199,
-    qr: "/payments/web-development-with-next-js.jpeg",
+  stickstopia :{
+    single:80,
+    team:150,
+  },
+  instrumentiq :{
+    single:80,
+  },
+  presentationhub :{
+    single:100,
+  },
+  geometry :{
+    single:100,
+    team:150,
   },
 
-  "data-science-with-python": {
-    price: 199,
-    qr: "/payments/data-science-with-python.jpeg",
-  },
+  bgmiff :{
+    bgmi:200,
+    freefire:200,
 
-  // 🔹 Technical Events
-  "code-clash": {
-    price: 50,
-    qr: "/payments/code-clash.jpeg",
   },
+  photoreelcontest :{
+    photo :30,
+    reel:30,
+    combo:50,
+  },
+  treasurehunt :{
+    single:50,
+    team:200,
+  },
+  imagequiz :{
+    single:30,
+  },
+  rubicscube :{
+    single:40,
+  },
+  matchthehands :{
+    single:30
+  },
+  primaverap6 :{
+    single:500
+  }
 
-  "hackathon": {
-    price: 100,
-    qr: "/payments/hackathon.jpeg",
-  },
-
-  // 🔹 Non-Technical Events
-  "treasure-hunt": {
-    price: 30,
-    qr: "/payments/treasure-hunt.jpeg",
-  },
-
-  "fun-quiz": {
-    price: 20,
-    qr: "/payments/fun-quiz.jpeg",
-  },
 };

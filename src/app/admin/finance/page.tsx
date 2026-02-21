@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { EVENT_PRICES } from "@/helpers/eventPrices";
-import { EVENT_PAYMENTS } from "@/helpers/eventPayments";
-
 
 type Payment = {
   _id: string;
-  eventTitle: string;
-  eventType: string;
+  eventTitle?: string;
+  eventType?: string;
+  paymentCategory: "event" | "accommodation";
+  amount?: number; // for accommodation
   userId: {
     name: string;
     email: string;
@@ -18,14 +18,12 @@ type Payment = {
   verified: boolean;
 };
 
-
 export default function FinancePage() {
   const FINANCE_PASSWORD =
     process.env.NEXT_PUBLIC_FINANCE_PASSWORD || "finance123";
 
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -52,7 +50,6 @@ export default function FinancePage() {
 
   async function loadData() {
     setLoading(true);
-
     try {
       const res = await fetch("/api/admin/pending-payments", {
         cache: "no-store",
@@ -66,7 +63,6 @@ export default function FinancePage() {
     } catch (err) {
       console.error(err);
     }
-
     setLoading(false);
   }
 
@@ -89,6 +85,25 @@ export default function FinancePage() {
       alert("Verification failed");
     }
   }
+
+  // 🔥 Price Logic (Event + Accommodation)
+  function getPrice(p: Payment) {
+    if (p.paymentCategory === "accommodation") {
+      return p.amount ?? 0;
+    }
+
+    return (
+      EVENT_PRICES[p.eventTitle ?? ""]?.[
+        p.eventType?.toLowerCase().trim() ?? ""
+      ] ?? 0
+    );
+  }
+
+  // 🔥 Total Amount
+  const totalAmount = payments.reduce(
+    (sum, p) => sum + getPrice(p),
+    0
+  );
 
   // 🔐 LOGIN UI
   if (!authenticated) {
@@ -137,16 +152,6 @@ export default function FinancePage() {
     );
   }
 
-  function formatEventTitle(slug: string) {
-  return slug
-    .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() + word.slice(1)
-    )
-    .join(" ");
-}
-
   // 📊 Dashboard
   return (
     <div className="min-h-screen px-6 py-16 text-white mt-20 space-y-6 bg-gradient-to-br from-[#0f3d3e] via-[#0b3a3b] to-[#072c2d]">
@@ -178,13 +183,7 @@ export default function FinancePage() {
         <p>
           Total Amount:{" "}
           <span className="text-green-300 font-medium">
-         ₹
-{payments.reduce(
-  (sum, p) =>
-    sum + (EVENT_PRICES[p.eventTitle]?.price || 0),
-  0
-)}
- 
+            ₹{totalAmount}
           </span>
         </p>
       </div>
@@ -196,58 +195,57 @@ export default function FinancePage() {
       )}
 
       <div className="space-y-4">
-        {payments.map((p) => (
-          <div
-            key={p._id}
-            className="rounded-xl border border-white/10 bg-white/5 p-4 flex justify-between items-center backdrop-blur-md"
-          >
-            <div>
-              <p className="font-medium">
-                {p.userId?.name}
-              <span className="text-xs px-2 py-1 rounded-md bg-cyan-400/20 text-cyan-300 ml-2">
-  {formatEventTitle(p.eventTitle)}
-</span>
+        {payments.map((p) => {
+          const price = getPrice(p);
 
-              </p>
-
-              <p className="text-sm text-gray-400">
-                {p.userId?.email}
-              </p>
-
-              {p.userId?.mobile && (
-                <p className="text-sm text-gray-400">
-                  Mobile: {p.userId?.mobile}
+          return (
+            <div
+              key={p._id}
+              className="rounded-xl border border-white/10 bg-white/5 p-4 flex justify-between items-center backdrop-blur-md"
+            >
+              <div>
+                <p className="font-medium">
+                  {p.userId?.name}
+                  <span className="text-xs px-2 py-1 rounded-md bg-cyan-400/20 text-cyan-300 ml-2">
+                    {p.paymentCategory === "accommodation"
+                      ? "Accommodation"
+                      : p.eventTitle}
+                  </span>
                 </p>
-              )}
 
-              <p className="text-sm">
-  Amount: ₹{EVENT_PRICES[p.eventTitle]?.price || 0}
-</p>
+                <p className="text-sm text-gray-400">
+                  {p.userId?.email}
+                </p>
 
-              <p className="text-sm">
-                UTR:{" "}
-                <span className="text-cyan-300">
-                  {p.utr}
-                </span>
-              </p>
+                {p.userId?.mobile && (
+                  <p className="text-sm text-gray-400">
+                    Mobile: {p.userId.mobile}
+                  </p>
+                )}
+
+                <p className="text-sm">
+                  Price: ₹{price}
+                </p>
+
+                <p className="text-sm">
+                  UTR:{" "}
+                  <span className="text-cyan-300">
+                    {p.utr}
+                  </span>
+                </p>
+              </div>
+
+              <button
+                onClick={() =>
+                  verifyPayment(p._id, p.paymentCategory)
+                }
+                className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
+              >
+                Mark Verified
+              </button>
             </div>
-
-           <button
-  onClick={() =>
-    verifyPayment(
-      p._id,
-      p.eventType === "accommodation"
-        ? "accommodation"
-        : "event"
-    )
-  }
-  className="rounded-lg border border-green-400/30 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
->
-  Mark Verified
-</button>
-
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
