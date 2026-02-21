@@ -82,7 +82,7 @@ const workshops = [
   { name: "R Venkata Sri Teja", img: "/coordinators/teja.jpeg", coor:"Accommodation Coordinator ", contact : "tel:7569864639" },
   { name: "V Dhana Lakshmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
   { name: "CH Sidhardha", img: "/coordinators/siddu.jpeg", coor:"Tech Events Coordinator ",  contact: "tel:9014114261" },
-  { name: "M Pavithara", img: "/coordinators/image.jpeg", coor:"Tech Events Coordinator ",   },
+  { name: "M Pavithra", img: "/coordinators/image.jpeg", coor:"Tech Events Coordinator ",   },
 ];
 
   return (
