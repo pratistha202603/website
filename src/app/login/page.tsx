@@ -33,7 +33,32 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/form");
+      // 🔐 Get logged-in user details
+      const meRes = await fetch("/api/me", {
+        credentials: "include",
+      });
+
+      if (!meRes.ok) {
+        setMsg("Failed to fetch user data");
+        return;
+      }
+
+      const user = await meRes.json();
+
+      // 🚀 Role-based redirect
+      if (user.role === "admin") {
+        router.push("/admin");
+      } 
+      else if (user.role === "finance") {
+        router.push("/admin/finance");
+      } 
+      else if (user.role === "coordinator") {
+        router.push("/coordinators/dashboard");
+      } 
+      else {
+        router.push("/form"); // normal user
+      }
+
     } catch (err) {
       setMsg("Something went wrong");
     } finally {

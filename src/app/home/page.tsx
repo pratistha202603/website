@@ -77,7 +77,7 @@ const workshops = [
     const coordinators = [
   { name: "M Madhan Kumar", coor:"Fest Coordinator", img: "/coordinators/madhan.jpeg", contact: "tel:8886552434" },
   { name: "U Charitha Ratnam", img: "/coordinators/charitha.jpeg" , coor:"Fest Coordinator" },
-  { name: "Buddala Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:7569864639" },
+  { name: "Buddala Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:6301410265" },
   { name: "M Hema Tejaswini", img: "/coordinators/hema.jpeg", coor:"Student Coordinator ", },
   { name: "R Venkata Sri Teja", img: "/coordinators/teja.jpeg", coor:"Accommodation Coordinator ", contact : "tel:7569864639" },
   { name: "V Dhana Lakshmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
@@ -219,15 +219,18 @@ const workshops = [
           We're thrilled to offer 2 DAYS ACCOMMODATION for the Participants of Pratistha-2k26! Enjoy a Comfortable Stay. delecious meals,
           and a vibrant campus atmosphere 
               </p>
-      <p className="text-base text-gray-300 mb-2 text-center font-bold">
+      <p className="text-base text-orange-300 mb-2 text-center font-bold">
           Dates: March 10th & 1th
               </p>
       <p className="text-sm text-gray-300 mb-2">
           Location: Jntugv college, Dwarapudi, Vizianagaram, Andhra Pradesh 535003. Limited slots available!
               </p>
       <p className="text-sm text-gray-300 mb-2">
-            contact us : 7569864639
-             to confirm your spot. Don't miss out -- see you soon
+
+            <a href="tel:7569864639" className="text-cyan-400 font-bold hover:underline m-2 text-md">
+  Contact us: 7569864639 
+</a>
+               for more Details . Don't miss out -- see you soon
               </p>
       <p className="text-xs text-gray-400">
         ✔ Shared rooms • ✔ Basic beds • ✔ Drinking water
@@ -349,31 +352,37 @@ const workshops = [
   {/* Coordinator Access Buttons */}
   <div className="pt-8">
     <h3 className="text-sm text-gray-400 mb-3">
-      Coordinator Access
+      <a href="/coordinators/dashboard">Coordinator Access</a>
     </h3>
 
     <div className="flex justify-center gap-4 flex-wrap">
 
-      <Link
+      {/* <Link
         href="/admin/finance"
-        className="text-sm rounded-lg border border-green-400/20 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
+        // className="text-sm rounded-lg border border-green-400/20 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
       >
         Finance Login
       </Link>
 
       <Link
         href="/admin/accommodation"
-        className="text-sm rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-emerald-300 hover:bg-emerald-400/20 transition"
+        // className="text-sm rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-emerald-300 hover:bg-emerald-400/20 transition"
       >
         Accommodation Login
       </Link>
 
       <Link
         href="/coordinators"
-        className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
+        // className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
       >
         Events Login
       </Link>
+      <Link
+        href="/coordinators"
+        // className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
+      >
+        Admin
+      </Link> */}
 
     </div>
   </div>
