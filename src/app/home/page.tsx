@@ -10,7 +10,7 @@ export default function FestHomePage() {
 const workshops = [
   {
     title: "Primavera p6",
-    img: "/tevents/primavera.jpeg",
+    img: "/tevents/primavera.png",
   },
 ]
 
@@ -78,9 +78,9 @@ const workshops = [
   { name: "M Madhan Kumar", coor:"Fest Coordinator", img: "/coordinators/madhan.jpeg", contact: "tel:8886552434" },
   { name: "U Charitha Ratnam", img: "/coordinators/charitha.jpeg" , coor:"Fest Coordinator" },
   { name: "Buddala Chakradhar   ", img: "/coordinators/chakri.jpeg" , coor:"Student Coordinator ", contact: "tel:6301410265" },
-  { name: "M Hema Tejaswini", img: "/coordinators/hema.jpeg", coor:"Student Coordinator ", },
+  { name: "M Hema Tejaswani", img: "/coordinators/hema.jpeg", coor:"Student Coordinator ", },
   { name: "R Venkata Sri Teja", img: "/coordinators/teja.jpeg", coor:"Accommodation Coordinator ", contact : "tel:7569864639" },
-  { name: "V Dhana Lakshmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
+  { name: "V Dhana Laxmi", img: "/coordinators/dhana.jpeg", coor:"Accommodation Coordinator ", },
   { name: "CH Sidhardha", img: "/coordinators/siddu.jpeg", coor:"Tech Events Coordinator ",  contact: "tel:9014114261" },
   { name: "M Pavithra", img: "/coordinators/image.jpeg", coor:"Tech Events Coordinator ",   },
 ];
@@ -220,7 +220,7 @@ const workshops = [
           and a vibrant campus atmosphere 
               </p>
       <p className="text-base text-orange-300 mb-2 text-center font-bold">
-          Dates: March 10th & 1th
+          Dates: March 10th & 11th
               </p>
       <p className="text-sm text-gray-300 mb-2">
           Location: Jntugv college, Dwarapudi, Vizianagaram, Andhra Pradesh 535003. Limited slots available!
@@ -273,11 +273,11 @@ const workshops = [
               ease: "linear",
             }}
           >
-            {[...sponsors, ...sponsors].map((s, i) => (
+            {[...sponsors , ...sponsors].map((s, i) => (
               <SponsorCard
                 key={i}
                 title={s}
-                img={`https://picsum.photos/300/200?random=${i + 30}`}
+                img="/sponser/sponser1.jpeg"
               />
             ))}
           </motion.div>
@@ -459,8 +459,8 @@ function MiniCard({ title, img }: { title: string; img: string }) {
 function SponsorCard({ title, img }: { title: string; img: string }) {
   return (
     <div className="min-w-[160px] rounded-lg border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden">
-      <img src={img} className="h-20 w-full object-cover" alt={title} />
-      <div className="p-2 text-center text-xs text-gray-200">{title}</div>
+      <img src={img} className="h-20 w-full object-coverb m-2" alt={title} />
+      {/* <div className="p-2 text-center text-xs text-gray-200">{title}</div> */}
     </div>
   );
 }

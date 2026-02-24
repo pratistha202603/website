@@ -11,6 +11,8 @@ const nonTechnicalEvents = [
     time: "4:00 PM – 6:00 PM",
     venue: "Online",
     coordinator: "J Saketh",
+    price:"Squad :200 solo:50",
+    gift:"Up to 1000 , Per Kill:10"
   },
   {
     title: "Photo & Reel Contest",
@@ -19,6 +21,8 @@ const nonTechnicalEvents = [
     time: "24 / 7",
     venue: "Online",
     coordinator: "Madhan Kumar",
+    price:"Photo:30 Reel : 30 Combo:50",
+    gift:"Photo:Upto 1000 Reel:Upto 1000 Combo:Upto 2000"
   },
   {
     title: "Treasure Hunt",
@@ -27,6 +31,9 @@ const nonTechnicalEvents = [
     time: "11:00 PM – 12:00 PM",
     venue: "Civil Engineering Department",
     coordinator: "B Kalpana",
+    price:"Single:50 Team(4):200",
+    gift:"Upto 1000"
+
   },
   {
     title: "Image Quiz",
@@ -35,6 +42,8 @@ const nonTechnicalEvents = [
     time: "10:00 AM – 11:00 AM",
     venue: "Department of Civil Engineering ",
     coordinator: "K.M Sesidhar",
+    price:"Rupees 30",
+    gift:"Up to 500"
   },
   {
     title: "Rubics Cube",
@@ -43,6 +52,8 @@ const nonTechnicalEvents = [
     time: "2:00 PM – 4:00 PM",
     venue: "Department of Civil Engineering",
     coordinator: "N. Vishal",
+    price:"Rupees 40",
+    gift:"Up to 500"
   },
   {
     title: "Match the Hands",
@@ -51,6 +62,8 @@ const nonTechnicalEvents = [
     time: "10:00 AM – 4:00 PM",
     venue: "Department of Civil Engineering on Stalls",
     coordinator: "B. Chakradhar",
+    price:"Rupees 30",
+    gift:"Up to 500"
   },
 ];
 
@@ -80,6 +93,7 @@ export default function NonTechnicalEventPage() {
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-20 text-white sm:mt-10">
+      {/* <img src="/nevents/photo.jpeg" alt=""  className="w-80 ml-"/> */}
 
       <h1
         className="text-3xl sm:text-4xl font-extrabold mb-6
@@ -98,6 +112,8 @@ export default function NonTechnicalEventPage() {
         <Info label="Time" value={event.time} />
         <Info label="Venue" value={event.venue} />
         <Info label="Coordinator" value={event.coordinator} />
+        <Info label="Entry Fee" value={event.price} />
+        <Info label="prize for Winner" value={event.gift} />
       </div>
 
       <Link

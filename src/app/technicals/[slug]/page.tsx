@@ -12,6 +12,8 @@ const technicalEvents = [
     time: "10:00 AM – 12:00 PM",
     venue: "Department of civil engineering",
     coordinator: "Ch.N. Siddardha",
+    price:"Single 100 Team(2) 200",
+    gift:"Up to 1500"
   },
   {
     title: "Brain Battle",
@@ -20,6 +22,8 @@ const technicalEvents = [
     time: "2:00 PM – 4:00 PM",
     venue: "Department of Civil engineering",
     coordinator: "K.J.R. Swamy",
+    price:"Team(3):150 Team(4):200",
+    gift:"Up to 1500"
   },
   {
     title: "Stickstopia",
@@ -28,6 +32,8 @@ const technicalEvents = [
     time: "10:00 AM – 12:00 PM",
     venue: "Department of Mechanical engineering (LH-4)",
     coordinator: "M. Uma Mahesh",
+    price:"single:80 Team(2):150",
+    gift:"An Exiting Gift"
   },
   {
     title: "Instrument IQ",
@@ -36,6 +42,8 @@ const technicalEvents = [
     time: "2:00 PM – 4:00 PM",
     venue: "Civil Engineering Laboratories",
     coordinator: "G. Anil Kumar",
+    price:"Rupees : 80",
+    gift:"an Exiting Gift"
   },
   {
     title: "Presentation HUB",
@@ -44,6 +52,8 @@ const technicalEvents = [
     time: "2:00 PM – 4:00 PM",
     venue: "Department of Civil Engineering (LH-2)",
     coordinator: "M. Ajay",
+    price:"Rupees :100",
+    gift:"An Exiting Gift"
   },
   {
     title: "Geometry",
@@ -52,6 +62,8 @@ const technicalEvents = [
     time: "11:00 AM – 1:00 PM",
     venue: "Department of Civil Engineering",
     coordinator: "Y. Pavan Kumar",
+    price:"Single:100 Team(2):150",
+    gift:"Up to 1500"
   },
 ];
 
@@ -97,6 +109,8 @@ export default function TechnicalEventPage() {
         <Info label="Time" value={event.time} />
         <Info label="Venue" value={event.venue} />
         <Info label="Coordinator" value={event.coordinator} />
+        <Info label="Registration Fee" value={event.price} />
+        <Info label="Prize Money" value={event.gift} />
       </div>
 
       <Link

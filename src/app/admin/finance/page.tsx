@@ -20,7 +20,7 @@ type Payment = {
 
 export default function FinancePage() {
   const FINANCE_PASSWORD =
-    process.env.NEXT_PUBLIC_FINANCE_PASSWORD || "finance123";
+    process.env.NEXT_PUBLIC_FINANCE_PASSWORD || "uma666";
 
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);

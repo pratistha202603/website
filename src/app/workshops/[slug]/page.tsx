@@ -1,10 +1,15 @@
 import Link from "next/link";
 
+
 const workshops = [
   {
     title: "Primavera p6",
     description:
-      "Learn how to use Primavera p6 for project management and scheduling. This workshop will cover the basics of Primavera p6, including how to create a project, add tasks, and manage resources.",
+      "This hands-on program is designed to equip participants with modern AI concepts applied to construction projects, along with complete practical training in Primavera P6.",
+
+
+
+
     date: "10 & 11 March 2026",
     time: "10:00 AM – 4:00 PM",
     venue: "Seminar Hall – Block A",
@@ -50,6 +55,23 @@ export default async function WorkshopPage({
 
       <p className="text-gray-300 mb-8">
         {workshop.description}
+       This hands-on program is designed to equip participants with modern AI concepts applied to construction projects, along with complete practical training in Primavera P6.
+
+<p className="pd-2 m-3">🔹 Key Highlights:</p>
+<p>✔ AI applications in construction planning & decision-making</p>
+<p>✔ AI-supported project analysis concepts </p>
+<p>✔ Complete Primavera P6 scheduling workflow</p>
+<p>✔ WBS creation, activity sequencing & resource management</p>
+<p>✔ Project monitoring and control techniques</p>
+<p className="m-5"></p>
+
+
+📜 Certificate issued by JNTUGV
+🤝 In Association with IIT (ISM) Dhanbad ...
+🏨 Accommodation available at JNTUGV Hostel for 2 days (for outstation participants)
+
+Seats are limited. Registration confirmed only after fee payment.
+
       </p>
 
       <div className="grid sm:grid-cols-2 gap-4 mb-10">
