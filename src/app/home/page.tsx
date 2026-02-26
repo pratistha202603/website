@@ -346,7 +346,7 @@ const workshops = [
     ))}
   </div>
   {/* <div className="fixed top-6 right-6 z-[9999]"> */}
-  <div className="rounded-xl border border-cyan-400/40 bg-black/40 backdrop-blur-md px-5 py-2 shadow-xl mt-20 sm:mx-100 mx-20">
+  <div className="rounded-xl border border-cyan-400/40 bg-black/40 backdrop-blur-md px-5 py-2 shadow-xl mt-20 sm:mx-100 mx-20 md:mx-20">
     <p className="text-white-300 text-sm sm:text-base font-semibold ">
       👥 Total Visitors: {count}
     </p>

@@ -1,7 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -18,6 +17,7 @@ export default function SideMenu() {
     pathname === "/home" ? hash : `/home${hash}`;
 
   const links = [
+    { label: "Profile", href: festLink("/profile") },
     { label: "Home", href: "/home" },
     { label: "Workshops", href: festLink("#workshops") },
     { label: "Events", href: festLink("#technical-events") },
@@ -26,14 +26,13 @@ export default function SideMenu() {
     { label: "Coordinators", href: festLink("#coordinators") },
   ];
 
-  // ✅ check login status
+  // ✅ Check login status
   useEffect(() => {
     async function checkLogin() {
       try {
         const res = await fetch("/api/me", {
           credentials: "include",
         });
-
         setLoggedIn(res.ok);
       } catch {
         setLoggedIn(false);
@@ -65,13 +64,12 @@ export default function SideMenu() {
           <Link
             key={l.label}
             href={l.href}
-            className="text-xl hover:text-cyan-300 transition font-bold text-white"
+            className="text-xl hover:text-cyan-300 transition font-bold"
           >
             {l.label}
           </Link>
         ))}
 
-        {/* ✅ Login / Logout switch */}
         {loggedIn ? (
           <button
             onClick={handleLogout}
@@ -86,28 +84,37 @@ export default function SideMenu() {
           >
             Login
           </button>
-          
         )}
-         <Link href="/profile">
-  My Profile
-</Link>
       </nav>
 
-      {/* ---------------- Mobile Hamburger ---------------- */}
+      {/* ---------------- Mobile Toggle Button ---------------- */}
       <button
-        onClick={() => setOpen(true)}
-        aria-label="Open menu"
-        className="md:hidden fixed top-4 right-4 z-50 group flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg transition hover:bg-white/20"
-      >
-        <span className="h-[2px] w-5 bg-white"></span>
-        <span className="h-[2px] w-5 bg-white"></span>
-        <span className="h-[2px] w-5 bg-white"></span>
-      </button>
+  onClick={() => setOpen(!open)}
+  aria-label="Toggle menu"
+  className="md:hidden fixed top-4 right-4 z-[60]  flex h-11 w-11 flex-col items-center justify-center gap-1.5  rounded-xl border border-white/20   bg-white/10 backdrop-blur-md shadow-lg   transition-all duration-300 hover:bg-white/20"
+>
+  <span
+    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+      open ? "rotate-45 translate-y-[6px]" : ""
+    }`}
+  />
+  <span
+    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+      open ? "opacity-0" : ""
+    }`}
+  />
+  <span
+    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+      open ? "-rotate-45 -translate-y-[6px]" : ""
+    }`}
+  />
+</button>
 
       {/* ---------------- Mobile Side Menu ---------------- */}
       <AnimatePresence>
         {open && (
           <>
+            {/* Overlay */}
             <motion.div
               onClick={() => setOpen(false)}
               className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
@@ -116,6 +123,7 @@ export default function SideMenu() {
               exit={{ opacity: 0 }}
             />
 
+            {/* Sidebar */}
             <motion.aside
               className="fixed right-0 top-0 z-40 h-full w-72 border-l border-white/20
                          bg-white/10 backdrop-blur-xl p-6 text-white"
@@ -124,20 +132,9 @@ export default function SideMenu() {
               exit={{ x: 300 }}
               transition={{ type: "tween", duration: 0.3 }}
             >
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-lg font-semibold">Menu</h3>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="text-white/70 hover:text-white"
-                >
-                  ✕
-                </button>
-              </div>
+              <h3 className="text-lg font-semibold mb-8">Menu</h3>
 
               <nav className="flex flex-col gap-4 text-sm">
-                 <Link href="/profile">
-  My Profile
-</Link>
                 {links.map((l) => (
                   <MenuLink
                     key={l.label}
@@ -148,7 +145,6 @@ export default function SideMenu() {
                   </MenuLink>
                 ))}
 
-                {/* ✅ Login / Logout switch (mobile) */}
                 {loggedIn ? (
                   <button
                     onClick={async () => {
@@ -172,8 +168,6 @@ export default function SideMenu() {
                     Login
                   </button>
                 )}
-               
-
               </nav>
             </motion.aside>
           </>
