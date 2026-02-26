@@ -109,7 +109,7 @@ export const EVENT_PAYMENTS: Record<string, EventPaymentType> = {
       },
       combo:{
         amount:50,
-        qr:"/payments/phtoreelcontest-combo.jpeg"
+        qr:"/payments/photoreelcontest-combo.jpeg"
       }
     },
   },

@@ -2,10 +2,42 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 
+
+
+
 export default function FestHomePage() {
+
+  const [count, setCount] = useState<number | null>(null);
+
+useEffect(() => {
+  console.log("FestHomePage mounted");
+
+  async function loadVisitors() {
+    try {
+      const res = await fetch("/api/visitors");
+
+      console.log("Response status:", res.status);
+
+      if (!res.ok) {
+        console.log("Response not OK");
+        return;
+      }
+
+      const data = await res.json();
+      console.log("Visitor data:", data);
+
+      setCount(data.total);
+    } catch (error) {
+      console.error("Fetch failed:", error);
+    }
+  }
+
+  loadVisitors();
+}, []);
 
 const workshops = [
   {
@@ -87,6 +119,8 @@ const workshops = [
 
   return (
     <main className="relative py-3 sm:py-5 space-y-5 sm:px-50">
+      {/* Visitor Counter */}
+
       <div className="sm:mt-30 mt-10">
       {/* <div className={styles.indra}>Welcome</div> */}
       <div className="relative  space-y-20  sm:space-y-20">
@@ -311,11 +345,24 @@ const workshops = [
       </a>
     ))}
   </div>
+  {/* <div className="fixed top-6 right-6 z-[9999]"> */}
+  <div className="rounded-xl border border-cyan-400/40 bg-black/40 backdrop-blur-md px-5 py-2 shadow-xl mt-20 sm:mx-100 mx-20">
+    <p className="text-white-300 text-sm sm:text-base font-semibold ">
+      👥 Total Visitors: {count}
+    </p>
+  </div>
+{/* </div> */}
 </section>
 </section>
+
+
       {/* ---------------- Footer Section ---------------- */}
+      {/* Visitor Counter */}
+
 
 <section className="mt-24 pt-12 border-t border-white/10 text-center space-y-8 {styles.block}">
+
+
 
   {/* Social Media Buttons */}
   <div>
@@ -355,36 +402,7 @@ const workshops = [
       <a href="/coordinators/dashboard">Coordinator Access</a>
     </h3>
 
-    <div className="flex justify-center gap-4 flex-wrap">
 
-      {/* <Link
-        href="/admin/finance"
-        // className="text-sm rounded-lg border border-green-400/20 bg-green-400/10 px-4 py-2 text-green-300 hover:bg-green-400/20 transition"
-      >
-        Finance Login
-      </Link>
-
-      <Link
-        href="/admin/accommodation"
-        // className="text-sm rounded-lg border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-emerald-300 hover:bg-emerald-400/20 transition"
-      >
-        Accommodation Login
-      </Link>
-
-      <Link
-        href="/coordinators"
-        // className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
-      >
-        Events Login
-      </Link>
-      <Link
-        href="/coordinators"
-        // className="text-sm rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-cyan-300 hover:bg-cyan-400/20 transition"
-      >
-        Admin
-      </Link> */}
-
-    </div>
   </div>
 
 </section>

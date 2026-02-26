@@ -33,6 +33,34 @@ export default function FormPageClient() {
     setEventSlug(normalized);
   }, [searchParams]);
 
+  const upiId = "mutchiuma666-3@oksbi"; // 🔁 replace with real UPI ID
+const [copied, setCopied] = useState(false);
+
+const handleCopy = async () => {
+  try {
+    // Modern API
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(upiId);
+    } else {
+      // Fallback for HTTP / older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = upiId;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  } catch (err) {
+    console.error("Copy failed:", err);
+  }
+};
+
   // 🔹 Auto select first option
   useEffect(() => {
     if (!eventSlug) return;
@@ -268,6 +296,29 @@ export default function FormPageClient() {
           </div>
         )}
 
+{/* UPI ID Copy Field */}
+<div className="rounded-xl border border-white/10 bg-white/5 p-4">
+  <label className="text-sm text-gray-300 block mb-2">
+    Pay using this UPI ID
+  </label>
+
+  <div className="flex items-center rounded-lg border border-cyan-400/30 bg-white/10 px-3 py-2">
+    <input
+      type="text"
+      value={upiId}
+      readOnly
+      className="flex-1 bg-transparent text-cyan-300 outline-none text-sm"
+    />
+
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="ml-1 px-3 py-1 rounded-md bg-cyan-400/20 text-cyan-300 text-sm hover:bg-cyan-400/30 transition"
+    >
+      {copied ? "Copied!" : "Copy"}
+    </button>
+  </div>
+</div>
         {/* UTR */}
         <div>
           <label className="text-sm text-gray-300">
