@@ -43,13 +43,13 @@ export default function CoordinatorLoginPage() {
         >
           Login
         </button>
-         <button
+         {/* <button
           type="button"
           onClick={() => router.push("./signup")}
           className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-base text-gray-300 hover:bg-white/10 transition"
         >
           Go to Signup Page
-        </button>
+        </button> */}
 
       </form>
     </main>

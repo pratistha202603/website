@@ -237,6 +237,7 @@ const totalPendingAmount = registrations
                   <th className="p-3 text-left">Event</th>
                   <th className="p-3 text-left">Gender</th>
                   <th className="p-3 text-left">UTR</th>
+                  <th className="p-3 text-left">Amount</th>
                   <th className="p-3 text-left">Status</th>
                 </tr>
               </thead>
@@ -247,6 +248,7 @@ const totalPendingAmount = registrations
                     <td className="p-3">{r.eventTitle}</td>
                     <td className="p-3">{r.userId?.gender || "-"}</td>
                     <td className="p-3">{r.utr}</td>
+                    <td className="p-3">{r.amount}</td>
                     <td className="p-3">
                       {r.verified ? (
                         <span className="text-green-400">Verified</span>
