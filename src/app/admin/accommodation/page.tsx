@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const ADMIN_PASSWORD = "admin123"; // 🔥 Change this
+const ADMIN_PASSWORD = "acc123"; // 🔥 Change this
 
 type AccommodationType = {
   _id: string;
