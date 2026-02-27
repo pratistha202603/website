@@ -10,6 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
   POST   → Login
   GET    → Verify session
   DELETE → Logout
+  
 */
 
 export async function POST(req: NextRequest) {

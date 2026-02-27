@@ -20,7 +20,7 @@ const nonTechnicalEvents = [
     date: "20 Feb to 10 March 2026",
     time: "24 / 7",
     venue: "Online",
-    coordinator: "Madhan Kumar",
+    coordinator: "D Yaswanth",
     price:"Photo:30 Reel : 30 Combo:50",
     gift:"Photo:Upto 1000 Reel:Upto 1000 Combo:Upto 2000"
   },

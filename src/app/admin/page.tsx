@@ -10,6 +10,7 @@ type Registration = {
   eventTitle: string;
   utr: string;
   verified: boolean;
+  amount:number;
   userId: {
     name: string;
     email: string;
@@ -71,6 +72,18 @@ export default function AdminPage() {
 
     return eventMatch && genderMatch && statusMatch;
   });
+  const totalAmount = registrations.reduce(
+  (sum, r) => sum + (r.amount || 0),
+  0
+);
+
+const totalVerifiedAmount = registrations
+  .filter((r) => r.verified)
+  .reduce((sum, r) => sum + (r.amount || 0), 0);
+
+const totalPendingAmount = registrations
+  .filter((r) => !r.verified)
+  .reduce((sum, r) => sum + (r.amount || 0), 0);
 
   // 🔐 Login UI (Styled same as your other forms)
   if (!authenticated) {
@@ -182,6 +195,34 @@ export default function AdminPage() {
               <option value="pending">Pending</option>
             </select>
           </div>
+          {/* 💰 Collection Stats */}
+<div className="grid md:grid-cols-3 gap-4">
+
+  <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10
+                  backdrop-blur-xl p-6 shadow-lg">
+    <p className="text-sm text-gray-400">Total Collected</p>
+    <h2 className="text-2xl font-bold text-cyan-300">
+      ₹ {totalAmount}
+    </h2>
+  </div>
+
+  <div className="rounded-2xl border border-green-400/20 bg-green-400/10
+                  backdrop-blur-xl p-6 shadow-lg">
+    <p className="text-sm text-gray-400">Verified Amount</p>
+    <h2 className="text-2xl font-bold text-green-400">
+      ₹ {totalVerifiedAmount}
+    </h2>
+  </div>
+
+  <div className="rounded-2xl border border-yellow-400/20 bg-yellow-400/10
+                  backdrop-blur-xl p-6 shadow-lg">
+    <p className="text-sm text-gray-400">Pending Amount</p>
+    <h2 className="text-2xl font-bold text-yellow-400">
+      ₹ {totalPendingAmount}
+    </h2>
+  </div>
+
+</div>
 
           <p className="text-sm text-gray-400">
             Showing {filteredRegistrations.length} registrations
