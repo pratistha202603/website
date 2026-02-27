@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-const ADMIN_ID = "indra";
-const ADMIN_PASSWORD = "123456";
+const ADMIN_ID = "madhan";
+const ADMIN_PASSWORD = "madhan15";
 
 type Registration = {
   _id: string;
