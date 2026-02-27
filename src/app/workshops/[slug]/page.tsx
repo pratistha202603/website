@@ -57,7 +57,7 @@ export default async function WorkshopPage({
         {workshop.description}
        This hands-on program is designed to equip participants with modern AI concepts applied to construction projects, along with complete practical training in Primavera P6.
 
-<p className="pd-2 m-3">🔹 Key Highlights:</p>
+<p className="pd-2 m-3">🔹 Key Highlights: </p>
 <p>✔ AI applications in construction planning & decision-making</p>
 <p>✔ AI-supported project analysis concepts </p>
 <p>✔ Complete Primavera P6 scheduling workflow</p>

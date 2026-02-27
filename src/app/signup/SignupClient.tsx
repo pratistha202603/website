@@ -67,13 +67,8 @@ export default function SignupClient() {
         return;
       }
 
-      setSuccess(true);
-      setMsg("Account created successfully 🎉");
-
-      setTimeout(() => {
-        router.push("/home");
-        router.refresh();
-      }, 1200);
+    setSuccess(true);
+setLoading(false);
 
     } catch (err) {
       console.error(err);
@@ -196,15 +191,33 @@ export default function SignupClient() {
           />
         </div>
 
-        {msg && (
-          <p
-            className={`text-sm text-center ${
-              success ? "text-green-400" : "text-red-400"
-            }`}
-          >
-            {msg}
-          </p>
-        )}
+        {success && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="w-[90%] max-w-md rounded-2xl border border-green-400/30 
+      bg-black/80 backdrop-blur-xl p-6 text-center shadow-2xl animate-fadeIn">
+
+      <h2 className="text-2xl font-semibold text-green-400 mb-2">
+        ✅ Account Created Successfully
+      </h2>
+
+      <p className="text-gray-300 mb-6">
+        Now register for any event and participate in Pratistha 2K26 🎉
+      </p>
+
+      <button
+        onClick={() => {
+          router.push("/home");
+          router.refresh();
+        }}
+        className="w-full rounded-lg border border-cyan-400/40 
+        bg-cyan-400/10 py-2 text-cyan-300 
+        hover:bg-cyan-400/20 transition"
+      >
+        Register for Events
+      </button>
+    </div>
+  </div>
+)}
 
         <button
           type="submit"

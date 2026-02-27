@@ -56,7 +56,7 @@ export default function LoginPage() {
         router.push("/coordinators/dashboard");
       } 
       else {
-        router.push("/form"); // normal user
+        router.push("/home"); // normal user
       }
 
     } catch (err) {
@@ -74,8 +74,7 @@ export default function LoginPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 w-full max-w-sm rounded-2xl border border-white/10
-                   bg-white/10 backdrop-blur-xl p-8 shadow-2xl space-y-5"
+        className="relative z-10 w-full max-w-sm rounded-2xl border border-white/10 bg-white/10 backdrop-blur-xl p-8 shadow-2xl space-y-5"
       >
         <h2 className="text-2xl font-bold text-center text-cyan-300">
           Welcome Back
