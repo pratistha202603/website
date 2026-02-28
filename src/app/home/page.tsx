@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import Image from "next/image";
 
 
 
@@ -12,6 +13,7 @@ import styles from "./page.module.css";
 export default function FestHomePage() {
 
   const [count, setCount] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
 useEffect(() => {
   console.log("FestHomePage mounted");
@@ -105,7 +107,17 @@ const workshops = [
 ];
 
 
-  const sponsors = Array.from({ length: 6 }, (_, i) => `Sponsor ${i + 1}`);
+  const sponsors = [
+  "/sponser/sponser1.jpeg",
+  "/sponser/sponser2.jpeg",
+  "/sponser/sponser1.jpeg",
+  "/sponser/sponser2.jpeg",
+  "/sponser/sponser1.jpeg",
+  "/sponser/sponser2.jpeg",
+  "/sponser/sponser1.jpeg",
+  "/sponser/sponser2.jpeg",
+];
+
     const coordinators = [
   { name: "M Madhan Kumar", coor:"Fest Coordinator", img: "/coordinators/madhan.jpeg", contact: "tel:8886552434" },
   { name: "U Charitha Ratnam", img: "/coordinators/charitha.jpeg" , coor:"Fest Coordinator" },
@@ -294,30 +306,37 @@ const workshops = [
 
 
       {/* Sponsors */}
-      <section id="sponsors" className="text-center {styles.block}">
-        <SectionTitle variant="orange">Sponsors</SectionTitle>
+      <section id="sponsors" className="text-center py-16">
+      <h2 className="text-3xl md:text-4xl font-bold text-orange-400 mb-10">
+        Sponsors
+      </h2>
 
-        <div className="relative overflow-hidden">
-          <motion.div
-            className="flex gap-6 w-max"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            {[...sponsors , ...sponsors].map((s, i) => (
-              <SponsorCard
-                key={i}
-                title={s}
-                img="/sponser/sponser1.jpeg"
-              />
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <div
+        className="relative overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Left Gradient */}
+        <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
 
+        {/* Right Gradient */}
+        <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          className="flex gap-8 w-max"
+          animate={isHovered ? {} : { x: ["0%", "-50%"] }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          {[...sponsors, ...sponsors].map((img, i) => (
+            <SponsorCard key={i} img={img} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
       
 
       {/* About Event */}
@@ -474,11 +493,20 @@ function MiniCard({ title, img }: { title: string; img: string }) {
   );
 }
 
-function SponsorCard({ title, img }: { title: string; img: string }) {
+function SponsorCard({ img }: { img: string }) {
   return (
-    <div className="min-w-[160px] rounded-lg border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden">
-      <img src={img} className="h-20 w-full object-coverb m-2" alt={title} />
-      {/* <div className="p-2 text-center text-xs text-gray-200">{title}</div> */}
+    <div className="flex items-center justify-center min-w-[120px]">
+      <div className="relative w-[110px] h-[110px] rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:border-orange-400/60 hover:shadow-[0_0_25px_rgba(255,165,0,0.4)]">
+        
+        <Image
+          src={img}
+          alt="Sponsor Logo"
+          width={120}
+          height={120}
+          className="object-contain rounded-full"
+        />
+        
+      </div>
     </div>
   );
 }
