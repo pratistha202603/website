@@ -131,15 +131,32 @@ const workshops = [
 
   return (
     <main className="relative py-3 sm:py-5 space-y-5 sm:px-50">
+      {/* ================= Announcement Bar ================= */}
+    <div>
+<div className="mt-16 sm:mt-20 overflow-hidden border-y border-cyan-400/30  backdrop-blur-md">
+  <motion.div
+    className="whitespace-nowrap py-2 text-cyan-300 font-semibold text-sm sm:text-base"
+    animate={{ x: ["100%", "-100%"] }}
+    transition={{
+      repeat: Infinity,
+      duration: 10,
+      ease: "linear",
+    }}
+  >
+    🎉 Registrations Are Now Live for Pratistha 2K26! Secure Your Spot Today!
+    &nbsp;&nbsp;&nbsp;&nbsp;🎉 
+  </motion.div>
+</div>
       {/* Visitor Counter */}
 
-      <div className="sm:mt-30 mt-10">
+      <div className="">
       {/* <div className={styles.indra}>Welcome</div> */}
       <div className="relative  space-y-20  sm:space-y-20">
-        <div className="text-center text-md font-bold text-slate-50 mb-2 mt-20 sm:mt-20 sm:text-3xl ">Jawaharlal Nehru Technological University - Gurajada Vizianagaram </div>
+        <div className="text-center text-md font-bold text-slate-50 mb-2 mt-2 sm:mt-5 sm:text-3xl ">Jawaharlal Nehru Technological University - Gurajada Vizianagaram </div>
         <div className="text-center text-sm sm:text-3xl font-bold text-slate-50  mb-5 ">JNTU-GV College of Engineering Vizianagaram (A)</div>
         <div className="text-center text-lg sm:text-3xl font-bold text-slate-50 mt-10 ">Department of Civil Engineering </div>
 
+      </div>
       </div>
       {/* Hero */}
       <section className="text-center">

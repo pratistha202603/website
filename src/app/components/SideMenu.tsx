@@ -26,7 +26,6 @@ export default function SideMenu() {
     { label: "Coordinators", href: festLink("#coordinators") },
   ];
 
-  // ✅ Check login status
   useEffect(() => {
     async function checkLogin() {
       try {
@@ -38,7 +37,6 @@ export default function SideMenu() {
         setLoggedIn(false);
       }
     }
-
     checkLogin();
   }, []);
 
@@ -47,7 +45,6 @@ export default function SideMenu() {
       method: "POST",
       credentials: "include",
     });
-
     setLoggedIn(false);
     router.push("/login");
   }
@@ -58,8 +55,8 @@ export default function SideMenu() {
 
   return (
     <>
-      {/* ---------------- Desktop Top Menu ---------------- */}
-      <nav className="hidden md:flex fixed top-5 left-0 right-0 z-40 items-center justify-center gap-10 bg-white/10 backdrop-blur-xl border-b border-white/20 px-6 py-6 text-white">
+      {/* ================= Desktop Top Menu (ONLY LARGE SCREENS) ================= */}
+      <nav className="hidden lg:flex fixed top-5 left-0 right-0 z-40 items-center justify-center gap-10 bg-white/10 backdrop-blur-xl border-b border-white/20 px-6 py-6 text-white">
         {links.map((l) => (
           <Link
             key={l.label}
@@ -87,34 +84,33 @@ export default function SideMenu() {
         )}
       </nav>
 
-      {/* ---------------- Mobile Toggle Button ---------------- */}
+      {/* ================= Hamburger Button (MOBILE + MEDIUM) ================= */}
       <button
-  onClick={() => setOpen(!open)}
-  aria-label="Toggle menu"
-  className="md:hidden fixed top-4 right-4 z-[60]  flex h-11 w-11 flex-col items-center justify-center gap-1.5  rounded-xl border border-white/20   bg-white/10 backdrop-blur-md shadow-lg   transition-all duration-300 hover:bg-white/20"
->
-  <span
-    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-      open ? "rotate-45 translate-y-[6px]" : ""
-    }`}
-  />
-  <span
-    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-      open ? "opacity-0" : ""
-    }`}
-  />
-  <span
-    className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-      open ? "-rotate-45 -translate-y-[6px]" : ""
-    }`}
-  />
-</button>
+        onClick={() => setOpen(!open)}
+        aria-label="Toggle menu"
+        className="lg:hidden fixed top-4 right-4 z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-white/20"
+      >
+        <span
+          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+            open ? "rotate-45 translate-y-[6px]" : ""
+          }`}
+        />
+        <span
+          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+            open ? "opacity-0" : ""
+          }`}
+        />
+        <span
+          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+            open ? "-rotate-45 -translate-y-[6px]" : ""
+          }`}
+        />
+      </button>
 
-      {/* ---------------- Mobile Side Menu ---------------- */}
+      {/* ================= Side Menu (MOBILE + MEDIUM) ================= */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Overlay */}
             <motion.div
               onClick={() => setOpen(false)}
               className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
@@ -123,10 +119,8 @@ export default function SideMenu() {
               exit={{ opacity: 0 }}
             />
 
-            {/* Sidebar */}
             <motion.aside
-              className="fixed right-0 top-0 z-40 h-full w-72 border-l border-white/20
-                         bg-white/10 backdrop-blur-xl p-6 text-white"
+              className="fixed right-0 top-0 z-40 h-full w-72 border-l border-white/20 bg-white/10 backdrop-blur-xl p-6 text-white"
               initial={{ x: 300 }}
               animate={{ x: 0 }}
               exit={{ x: 300 }}
@@ -151,8 +145,7 @@ export default function SideMenu() {
                       setOpen(false);
                       await handleLogout();
                     }}
-                    className="mt-4 rounded-lg border border-red-400/20 bg-red-400/10
-                               px-4 py-2 text-left text-red-300 hover:bg-red-400/20 transition"
+                    className="mt-4 rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-2 text-left text-red-300 hover:bg-red-400/20 transition"
                   >
                     Logout
                   </button>
@@ -162,8 +155,7 @@ export default function SideMenu() {
                       setOpen(false);
                       handleLogin();
                     }}
-                    className="mt-4 rounded-lg border border-cyan-400/20 bg-cyan-400/10
-                               px-4 py-2 text-left text-cyan-300 hover:bg-cyan-400/20 transition"
+                    className="mt-4 rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-left text-cyan-300 hover:bg-cyan-400/20 transition"
                   >
                     Login
                   </button>
