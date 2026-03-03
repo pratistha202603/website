@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image"
 
 const words = [
   "PRATISTHA",
@@ -20,8 +21,13 @@ export default function Home() {
       <span className="font-inter mb-1 text-lg sm:text-xl md:text-2xl tracking-widest mt-30 uppercase bg-gradient-to-r from-cyan-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent px-5 py-2 rounded-full border border-white/15 backdrop-blur-md">
         Welcome to the Annual Tech Fest
       </span>
-
-      <img src="/pratistha logo.png" alt="Pratistha 2K26" />
+<Image
+  src="/pratistha logo.png"
+  alt="pratistha2026"
+  width={800}
+  height={400}
+  className="mx-auto w-[90%] sm:w-[75%] md:w-[65%] lg:w-[55%]"
+/>
 
       <a
         href="/home"
