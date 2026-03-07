@@ -4,16 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image"
 import { useEffect, useState } from "react";
 
-const words = [
-  "PRATISTHA",
-  "2K26",
-  "ANNUAL",
-  "TECH",
-  "FEST",
-  "Civil",
-  "EVENTS",
-  "CHALLENGES",
-];
+
 
 /* ================= Countdown Component ================= */
 
@@ -72,6 +63,25 @@ function CountdownTimer() {
   );
 }
 
+// export const metadata = {
+//   title: "Pratistha 2K26 | Annual Technical Fest | JNTU-GV Vizianagaram",
+//   description:
+//     "Pratistha 2K26 is the annual technical and cultural fest of JNTU-GV Vizianagaram. Participate in workshops, civil engineering events, gaming competitions, and exciting challenges.",
+//   keywords: [
+//     "Pratistha 2K26",
+//     "JNTU GV fest",
+//     "engineering fest Vizianagaram",
+//     "technical fest Andhra Pradesh",
+//     "civil engineering fest",
+//     "Primavera P6 workshop",
+//     "JNTU GV technical events"
+//   ],
+// };
+
+
+
+
+
 
 export default function Home() {
   return (
@@ -82,7 +92,7 @@ export default function Home() {
       </span>
 <Image
   src="/pratistha logo.png"
-  alt="pratistha2026"
+  alt="pratistha 2k26 Anuual Technical Fest JNTU-GV Vizianagaram"
   width={800}
   height={400}
   className="mx-auto w-[90%] sm:w-[75%] md:w-[65%] lg:w-[55%]"

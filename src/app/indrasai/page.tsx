@@ -19,8 +19,8 @@ export default function TradeCalc() {
   const [riskAmount, setRiskAmount] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
 
-  const [charges, setCharges] = useState<number>(45);
-  const [leverage, setLeverage] = useState<number>(5);
+  const [charges, setCharges] = useState<number>(60);
+  const [leverage, setLeverage] = useState<number>(10);
 
   // ---------- PASSWORD CHECK ----------
   const handleLogin = () => {
