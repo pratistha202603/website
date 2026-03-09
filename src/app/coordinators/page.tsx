@@ -308,10 +308,7 @@ export default function CoordinatorsPage() {
                   <thead className="bg-white/10">
                     <tr>
                       <th className="p-2">Name</th>
-                      <th className="p-2">College</th>
-                      <th className="p-2">Email</th>
-                      <th className="p-2">Mobile</th>
-                      <th className="p-2">Finance Status</th>
+                      
 
                       {ev.title.toLowerCase() === "primavera-p6" ? (
                         <>
@@ -321,6 +318,10 @@ export default function CoordinatorsPage() {
                       ) : (
                         <th className="p-2">Attendance</th>
                       )}
+                      <th className="p-2">College</th>
+                      <th className="p-2">Email</th>
+                      <th className="p-2">Mobile</th>
+                      <th className="p-2">Finance Status</th>
                     </tr>
                   </thead>
 
@@ -328,12 +329,7 @@ export default function CoordinatorsPage() {
                     {ev.candidates.map((c, i) => (
                       <tr key={c._id} className="border-t border-white/10">
                         <td className="p-2">{c.userId?.name}</td>
-                        <td className="p-2">{c.userId?.college}</td>
-                        <td className="p-2">{c.userId?.email}</td>
-                        <td className="p-2">{c.userId?.mobile}</td>
-                        <td className="p-2">
-                          {c.verified ? "Verified" : "Pending"}
-                        </td>
+                        
 <td className="p-2 text-center">
   <div className="flex justify-center gap-2">
 
@@ -402,6 +398,12 @@ export default function CoordinatorsPage() {
   </div>
 </td>
                         )}
+                        <td className="p-2">{c.userId?.college}</td>
+                        <td className="p-2">{c.userId?.email}</td>
+                        <td className="p-2">{c.userId?.mobile}</td>
+                        <td className="p-2">
+                          {c.verified ? "Verified" : "Pending"}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
