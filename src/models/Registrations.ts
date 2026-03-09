@@ -1,5 +1,5 @@
 import mongoose, { Schema, models, model } from "mongoose";
-import { unique } from "next/dist/build/utils";
+// import { unique } from "next/dist/build/utils";
 
 const RegistrationSchema = new Schema(
   {
@@ -39,6 +39,10 @@ const RegistrationSchema = new Schema(
       type: Boolean,
       default: false,
     },
+     attendance: {
+    day1: { type: String, default: "" },
+    day2: { type: String, default: "" }
+  },
   },
   { timestamps: true }
 );
