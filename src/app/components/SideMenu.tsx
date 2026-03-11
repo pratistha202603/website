@@ -16,15 +16,15 @@ export default function SideMenu() {
   const festLink = (hash: string) =>
     pathname === "/home" ? hash : `/home${hash}`;
 
-  const links = [
-    { label: "Profile", href: festLink("/profile") },
-    { label: "Home", href: "/home" },
-    { label: "Workshops", href: festLink("#workshops") },
-    { label: "Events", href: festLink("#technical-events") },
-    { label: "Accommodation", href: festLink("#accommodation") },
-    { label: "About", href: festLink("#about-college") },
-    { label: "Coordinators", href: festLink("#coordinators") },
-  ];
+  // const links = [
+  //   // { label: "Profile", href: festLink("/profile") },
+  //   // { label: "Home", href: "/home" },
+  //   // { label: "Workshops", href: festLink("#workshops") },
+  //   // { label: "Events", href: festLink("#technical-events") },
+  //   // { label: "Accommodation", href: festLink("#accommodation") },
+  //   // { label: "About", href: festLink("#about-college") },
+  //   // { label: "Coordinators", href: festLink("#coordinators") },
+  // ];
 
   useEffect(() => {
     async function checkLogin() {
@@ -54,118 +54,119 @@ export default function SideMenu() {
   }
 
   return (
-    <>
-      {/* ================= Desktop Top Menu (ONLY LARGE SCREENS) ================= */}
-      <nav className="hidden lg:flex fixed top-5 left-0 right-0 z-40 items-center justify-center gap-10 bg-white/10 backdrop-blur-xl border-b border-white/20 px-6 py-6 text-white">
-        {links.map((l) => (
-          <Link
-            key={l.label}
-            href={l.href}
-            className="text-xl hover:text-cyan-300 transition font-bold"
-          >
-            {l.label}
-          </Link>
-        ))}
+    <></>
+    // <>
+    //   {/* ================= Desktop Top Menu (ONLY LARGE SCREENS) ================= */}
+    //   <nav className="hidden lg:flex fixed top-5 left-0 right-0 z-40 items-center justify-center gap-10 bg-white/10 backdrop-blur-xl border-b border-white/20 px-6 py-6 text-white">
+    //     {links.map((l) => (
+    //       <Link
+    //         key={l.label}
+    //         href={l.href}
+    //         className="text-xl hover:text-cyan-300 transition font-bold"
+    //       >
+    //         {l.label}
+    //       </Link>
+    //     ))}
 
-        {loggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="text-xl font-bold text-red-300 hover:text-red-400 transition"
-          >
-            Logout
-          </button>
-        ) : (
-          <button
-            onClick={handleLogin}
-            className="text-xl font-bold text-cyan-300 hover:text-cyan-400 transition"
-          >
-            Login
-          </button>
-        )}
-      </nav>
+    //     {loggedIn ? (
+    //       <button
+    //         onClick={handleLogout}
+    //         className="text-xl font-bold text-red-300 hover:text-red-400 transition"
+    //       >
+    //         Logout
+    //       </button>
+    //     ) : (
+    //       <button
+    //         onClick={handleLogin}
+    //         className="text-xl font-bold text-cyan-300 hover:text-cyan-400 transition"
+    //       >
+    //         Login
+    //       </button>
+    //     )}
+    //   </nav>
 
-      {/* ================= Hamburger Button (MOBILE + MEDIUM) ================= */}
-      <button
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
-        className="lg:hidden fixed top-4 right-4 z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-white/20"
-      >
-        <span
-          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-            open ? "rotate-45 translate-y-[6px]" : ""
-          }`}
-        />
-        <span
-          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-            open ? "opacity-0" : ""
-          }`}
-        />
-        <span
-          className={`h-[2px] w-5 bg-white transition-all duration-300 ${
-            open ? "-rotate-45 -translate-y-[6px]" : ""
-          }`}
-        />
-      </button>
+    //   {/* ================= Hamburger Button (MOBILE + MEDIUM) ================= */}
+    //   <button
+    //     onClick={() => setOpen(!open)}
+    //     aria-label="Toggle menu"
+    //     className="lg:hidden fixed top-4 right-4 z-[60] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md shadow-lg transition-all duration-300 hover:bg-white/20"
+    //   >
+    //     <span
+    //       className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+    //         open ? "rotate-45 translate-y-[6px]" : ""
+    //       }`}
+    //     />
+    //     <span
+    //       className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+    //         open ? "opacity-0" : ""
+    //       }`}
+    //     />
+    //     <span
+    //       className={`h-[2px] w-5 bg-white transition-all duration-300 ${
+    //         open ? "-rotate-45 -translate-y-[6px]" : ""
+    //       }`}
+    //     />
+    //   </button>
 
-      {/* ================= Side Menu (MOBILE + MEDIUM) ================= */}
-      <AnimatePresence>
-        {open && (
-          <>
-            <motion.div
-              onClick={() => setOpen(false)}
-              className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
+    //   {/* ================= Side Menu (MOBILE + MEDIUM) ================= */}
+    //   <AnimatePresence>
+    //     {open && (
+    //       <>
+    //         <motion.div
+    //           onClick={() => setOpen(false)}
+    //           className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm"
+    //           initial={{ opacity: 0 }}
+    //           animate={{ opacity: 1 }}
+    //           exit={{ opacity: 0 }}
+    //         />
 
-            <motion.aside
-              className="fixed right-0 top-0 z-40 h-full w-72 border-l border-white/20 bg-white/10 backdrop-blur-xl p-6 text-white"
-              initial={{ x: 300 }}
-              animate={{ x: 0 }}
-              exit={{ x: 300 }}
-              transition={{ type: "tween", duration: 0.3 }}
-            >
-              <h3 className="text-lg font-semibold mb-8">Menu</h3>
+    //         <motion.aside
+    //           className="fixed right-0 top-0 z-40 h-full w-72 border-l border-white/20 bg-white/10 backdrop-blur-xl p-6 text-white"
+    //           initial={{ x: 300 }}
+    //           animate={{ x: 0 }}
+    //           exit={{ x: 300 }}
+    //           transition={{ type: "tween", duration: 0.3 }}
+    //         >
+    //           <h3 className="text-lg font-semibold mb-8">Menu</h3>
 
-              <nav className="flex flex-col gap-4 text-sm">
-                {links.map((l) => (
-                  <MenuLink
-                    key={l.label}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                  >
-                    {l.label}
-                  </MenuLink>
-                ))}
+    //           <nav className="flex flex-col gap-4 text-sm">
+    //             {links.map((l) => (
+    //               <MenuLink
+    //                 key={l.label}
+    //                 href={l.href}
+    //                 onClick={() => setOpen(false)}
+    //               >
+    //                 {l.label}
+    //               </MenuLink>
+    //             ))}
 
-                {loggedIn ? (
-                  <button
-                    onClick={async () => {
-                      setOpen(false);
-                      await handleLogout();
-                    }}
-                    className="mt-4 rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-2 text-left text-red-300 hover:bg-red-400/20 transition"
-                  >
-                    Logout
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setOpen(false);
-                      handleLogin();
-                    }}
-                    className="mt-4 rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-left text-cyan-300 hover:bg-cyan-400/20 transition"
-                  >
-                    Login
-                  </button>
-                )}
-              </nav>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+    //             {loggedIn ? (
+    //               <button
+    //                 onClick={async () => {
+    //                   setOpen(false);
+    //                   await handleLogout();
+    //                 }}
+    //                 className="mt-4 rounded-lg border border-red-400/20 bg-red-400/10 px-4 py-2 text-left text-red-300 hover:bg-red-400/20 transition"
+    //               >
+    //                 Logout
+    //               </button>
+    //             ) : (
+    //               <button
+    //                 onClick={() => {
+    //                   setOpen(false);
+    //                   handleLogin();
+    //                 }}
+    //                 className="mt-4 rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-left text-cyan-300 hover:bg-cyan-400/20 transition"
+    //               >
+    //                 Login
+    //               </button>
+    //             )}
+    //           </nav>
+    //         </motion.aside>
+    //       </>
+    //     )}
+    //   </AnimatePresence>
+    // </>
   );
 }
 
