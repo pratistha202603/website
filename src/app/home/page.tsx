@@ -143,7 +143,7 @@ const workshops = [
       ease: "linear",
     }}
   >
-    🎉 Registrations Are Now Live for Pratistha 2K26! Secure Your Spot Today!
+    🎉 Registrations Are Closed for Pratistha 2K26!
     &nbsp;&nbsp;&nbsp;&nbsp;🎉 
   </motion.div>
 </div>
@@ -214,7 +214,7 @@ const workshops = [
       {workshops.map((t) => (
         <Link
           key={t.title}
-          href={`/workshops/${getSlug(t.title)}`}
+          href={`/home`}
           className="block"
         >
           <GlowCard
@@ -236,7 +236,7 @@ const workshops = [
     {technical.map((t, i) => (
       <Link
         key={t.title}
-        href={`/technicals/${getSlug(t.title)}`}
+        href={`/home`}
         className="block"
       >
         <MiniCard
@@ -258,7 +258,7 @@ const workshops = [
     {nonTechnical.map((t, i) => (
       <Link
         key={t.title}
-        href={`/nontech/${getSlug(t.title)}`}
+        href={`/home`}
         className="block"
       >
         <MiniCard
@@ -312,7 +312,7 @@ const workshops = [
     </div>
     
           <Link
-  href="/accommodation"
+  href="/home"
   className="inline-block mt-4 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-5 py-2 text-cyan-300 hover:bg-cyan-400/20 text-center"
 >
   Register for accommodation
